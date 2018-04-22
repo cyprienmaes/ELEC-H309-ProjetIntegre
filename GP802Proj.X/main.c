@@ -8,7 +8,24 @@
 
 int main(void)
 {   
+    int voltage;
+    int output900;
+    int output1100;
+    
+    oscillatorInit();
+    adcPollingInit();
+    // Configuration du Timer2 a 16 000 Hz 
+    PR2 = 250; // => PR2 = 1/16000 * 4 * 10^6
+    T2CONbits.TON = 1;
+    
     while(1) {
-        
+        if (IFS0bits.T2IF) {
+            IFS0bits.T2IF = 0;
+            adcPollingStart();
+            while(!adcConversionFinished());
+            voltage = adcRead();
+            output900 = filtre900(voltage);
+            output1100 = filtre1100(voltage);
+        }
     }                                                                                                            
 }

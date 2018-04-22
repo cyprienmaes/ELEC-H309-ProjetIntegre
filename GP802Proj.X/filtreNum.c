@@ -65,31 +65,31 @@ int filtre900(int input)
 
 int filtre1100(int input)
 {
-    static long bridge1[2] = {0,0};
-    static long bridge2[2] = {0,0};
-    static long bridge3[2] = {0,0};
-    static long bridge4[2] = {0,0};
+    static long bridge5[2] = {0,0};
+    static long bridge6[2] = {0,0};
+    static long bridge7[2] = {0,0};
+    static long bridge8[2] = {0,0};
     long output1 = 0;
     long output2= 0;
     long output3 = 0;
     long output4 = 0;
     long exit = 0;
 
-    secondValues secondValues1 = sos(coef11001, bridge1, input);
-    bridge1[0] = bridge1[1];
-    bridge1[1] = secondValues1.interval/n;
+    secondValues secondValues1 = sos(coef11001, bridge5, input);
+    bridge5[0] = bridge5[1];
+    bridge5[1] = secondValues1.interval/n;
     output1 = (secondValues1.newval*gain)/nsquare;
-    secondValues secondValues2 = sos(coef11002, bridge2, output1);
-    bridge2[0] = bridge2[1];
-    bridge2[1] = secondValues2.interval/n;
+    secondValues secondValues2 = sos(coef11002, bridge6, output1);
+    bridge6[0] = bridge6[1];
+    bridge6[1] = secondValues2.interval/n;
     output2 = (secondValues2.newval*gain)/nsquare;
-    secondValues secondValues3 = sos(coef11003, bridge3, output2);
-    bridge3[0] = bridge3[1];
-    bridge3[1] = secondValues3.interval/n;
+    secondValues secondValues3 = sos(coef11003, bridge7, output2);
+    bridge7[0] = bridge7[1];
+    bridge7[1] = secondValues3.interval/n;
     output3 = (secondValues3.newval*gain)/nsquare;
-    secondValues secondValues4 = sos(coef11004, bridge4, output3);
-    bridge4[0] = bridge4[1];
-    bridge4[1] = secondValues4.interval/n;
+    secondValues secondValues4 = sos(coef11004, bridge8, output3);
+    bridge8[0] = bridge8[1];
+    bridge8[1] = secondValues4.interval/n;
     output4 = (secondValues4.newval*gain)/nsquare;
     return exit = 512 + output4;
 }
