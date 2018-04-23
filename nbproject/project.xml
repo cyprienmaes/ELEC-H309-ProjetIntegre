@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>GP802ProjCopy</name>
+            <name>GP802ProjCopy.X</name>
             <creation-uuid>fbf2ef4b-d3ee-422c-8b41-96d72be82dbd</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

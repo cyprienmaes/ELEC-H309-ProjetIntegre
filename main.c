@@ -20,6 +20,15 @@ unsigned int int_to_int(unsigned int k) {
     return (k == 0 || k == 1 ? k : ((k % 2) + 10 * int_to_int(k / 2)));
 }
 
+unsigned int split_message(unsigned int message){
+    int message1 = 0bmessage >> 2;
+    int message2 = 0bmessage & 0b0000000011;
+    int messages[2];
+    messages[0] = message1;
+    messages[1] = message2;
+    return messages;
+}
+
 
 int main(void)
 {
