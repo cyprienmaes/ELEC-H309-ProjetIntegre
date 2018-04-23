@@ -3,10 +3,10 @@ clear all; close all; clc;
 fe = 16000;
 te = 1/fe;
 fcentre = 1100;
-echant = round(fe/fcentre);
+echant = 20;
 gain = 8;
 change = 2**10;
-n = 10;
+n = 1;
 j = 0;
 sum = 0;
 

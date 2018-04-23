@@ -62,19 +62,19 @@ xc16-ld 1.34 (A)
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.text                        0x2ce               0x5d6           0x8c1  (2241)
-.dinit                       0x8a4                 0x8             0xc  (12)
+.text                        0x2ce               0x6de           0xa4d  (2637)
+.dinit                       0x9ac                 0xe            0x15  (21)
 
-                 Total "program" memory used (bytes):          0xa02  (2562) 1%
+                 Total "program" memory used (bytes):          0xb97  (2967) 2%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x4000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0            0x40  (64)
+.nbss                        0x800                   0            0x42  (66)
 
-                 Total "data" memory used (bytes):           0x40  (64) <1%
+                 Total "data" memory used (bytes):           0x42  (66) <1%
 
 
 Dynamic Memory Usage
@@ -82,10 +82,20 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x840                              0x3fc0  (16320)
+stack                        0x842                              0x3fbe  (16318)
 
-                 Maximum dynamic memory (bytes):         0x3fc0  (16320)
+                 Maximum dynamic memory (bytes):         0x3fbe  (16318)
 
+
+External Symbols in Data Memory (by address):
+
+                    0x0840                  _bit900
+                    0x0841                  _bit1100
+
+External Symbols in Data Memory (by name):
+
+                    0x0841                  _bit1100
+                    0x0840                  _bit900
 
 External Symbols in Program Memory (by address):
 
@@ -97,28 +107,30 @@ External Symbols in Program Memory (by address):
                   0x0002ce                  _sos
                   0x0003b6                  _filtre900
                   0x0005da                  _filtre1100
-                  0x000808                  _adcTimerInit
-                  0x000826                  _adcPollingStart
-                  0x00082e                  _adcConversionFinished
-                  0x00083c                  _adcRead
-                  0x000852                  _oscillatorInit
-                  0x000896                  _main
+                  0x000808                  __ISR_T2Interrupt
+                  0x000822                  _main
+                  0x00091e                  _adcTimerInit
+                  0x00093c                  _adcPollingStart
+                  0x000944                  _adcConversionFinished
+                  0x000952                  _adcRead
+                  0x000968                  _oscillatorInit
 
 External Symbols in Program Memory (by name):
 
                   0x0002c8                  __DefaultInterrupt
+                  0x000808                  __ISR_T2Interrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x00082e                  _adcConversionFinished
-                  0x000826                  _adcPollingStart
-                  0x00083c                  _adcRead
-                  0x000808                  _adcTimerInit
+                  0x000944                  _adcConversionFinished
+                  0x00093c                  _adcPollingStart
+                  0x000952                  _adcRead
+                  0x00091e                  _adcTimerInit
                   0x0005da                  _filtre1100
                   0x0003b6                  _filtre900
-                  0x000896                  _main
-                  0x000852                  _oscillatorInit
+                  0x000822                  _main
+                  0x000968                  _oscillatorInit
                   0x0002ce                  _sos
 
 Configuration mémoire
@@ -250,41 +262,41 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x137a
+.debug_info       0x000000       0x2288
  *(.debug_info)
  .debug_info      0x000000        0x565 build/default/production/init.o
- .debug_info      0x000565        0x2d8 build/default/production/main.o
- .debug_info      0x00083d        0x6b1 build/default/production/adc.o
- .debug_info      0x000eee        0x48c build/default/production/filtreNum.o
+ .debug_info      0x000565       0x11e6 build/default/production/main.o
+ .debug_info      0x00174b        0x6b1 build/default/production/adc.o
+ .debug_info      0x001dfc        0x48c build/default/production/filtreNum.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x339
+.debug_abbrev     0x000000        0x372
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xd6 build/default/production/init.o
- .debug_abbrev    0x0000d6         0xd6 build/default/production/main.o
- .debug_abbrev    0x0001ac         0xcb build/default/production/adc.o
- .debug_abbrev    0x000277         0xc2 build/default/production/filtreNum.o
+ .debug_abbrev    0x0000d6        0x10f build/default/production/main.o
+ .debug_abbrev    0x0001e5         0xcb build/default/production/adc.o
+ .debug_abbrev    0x0002b0         0xc2 build/default/production/filtreNum.o
 
-.debug_line       0x000000        0x2f5
+.debug_line       0x000000        0x32c
  *(.debug_line)
  .debug_line      0x000000         0xc4 build/default/production/init.o
- .debug_line      0x0000c4         0xc4 build/default/production/main.o
- .debug_line      0x000188         0xce build/default/production/adc.o
- .debug_line      0x000256         0x9f build/default/production/filtreNum.o
+ .debug_line      0x0000c4         0xfb build/default/production/main.o
+ .debug_line      0x0001bf         0xce build/default/production/adc.o
+ .debug_line      0x00028d         0x9f build/default/production/filtreNum.o
 
-.debug_frame      0x000000        0x16a
+.debug_frame      0x000000        0x186
  *(.debug_frame)
  .debug_frame     0x000000         0x30 build/default/production/init.o
- .debug_frame     0x000030         0x30 build/default/production/main.o
- .debug_frame     0x000060         0x84 build/default/production/adc.o
- .debug_frame     0x0000e4         0x86 build/default/production/filtreNum.o
+ .debug_frame     0x000030         0x4c build/default/production/main.o
+ .debug_frame     0x00007c         0x84 build/default/production/adc.o
+ .debug_frame     0x000100         0x86 build/default/production/filtreNum.o
 
-.debug_str        0x000000         0x9f
+.debug_str        0x000000         0xfc
  *(.debug_str)
  .debug_str       0x000000         0x16 build/default/production/init.o
- .debug_str       0x000016          0xa build/default/production/main.o
- .debug_str       0x000020         0x3a build/default/production/adc.o
- .debug_str       0x00005a         0x45 build/default/production/filtreNum.o
+ .debug_str       0x000016         0x67 build/default/production/main.o
+ .debug_str       0x00007d         0x3a build/default/production/adc.o
+ .debug_str       0x0000b7         0x45 build/default/production/filtreNum.o
 
 .debug_loc
  *(.debug_loc)
@@ -293,16 +305,16 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0xff
+                  0x000000        0x12b
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x50 build/default/production/init.o
  .debug_pubnames
-                  0x000050         0x1b build/default/production/main.o
+                  0x000050         0x47 build/default/production/main.o
  .debug_pubnames
-                  0x00006b         0x5d build/default/production/adc.o
+                  0x000097         0x5d build/default/production/adc.o
  .debug_pubnames
-                  0x0000c8         0x37 build/default/production/filtreNum.o
+                  0x0000f4         0x37 build/default/production/filtreNum.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1407,48 +1419,52 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000060        0x180
+                  0x000060        0x29d
  .debug_pubtypes
                   0x000060         0x61 build/default/production/init.o
  .debug_pubtypes
-                  0x0000c1         0x3e build/default/production/main.o
+                  0x0000c1        0x15b build/default/production/main.o
  .debug_pubtypes
-                  0x0000ff         0xad build/default/production/adc.o
+                  0x00021c         0xad build/default/production/adc.o
  .debug_pubtypes
-                  0x0001ac         0x34 build/default/production/filtreNum.o
+                  0x0002c9         0x34 build/default/production/filtreNum.o
 
 __c30_signature
-                  0x0001e0         0x24
+                  0x0002fd         0x24
  __c30_signature
-                  0x0001e0          0x6 build/default/production/init.o
+                  0x0002fd          0x6 build/default/production/init.o
  __c30_signature
-                  0x0001e6          0x6 build/default/production/main.o
+                  0x000303          0x6 build/default/production/main.o
  __c30_signature
-                  0x0001ec          0x6 build/default/production/adc.o
+                  0x000309          0x6 build/default/production/adc.o
  __c30_signature
-                  0x0001f2          0x6 build/default/production/filtreNum.o
+                  0x00030f          0x6 build/default/production/filtreNum.o
  __c30_signature
-                  0x0001f8          0x6 /opt/microchip/xc16/v1.34/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
+                  0x000315          0x6 /opt/microchip/xc16/v1.34/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0001fe          0x6 /opt/microchip/xc16/v1.34/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
+                  0x00031b          0x6 /opt/microchip/xc16/v1.34/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
 
-.nbss               0x0800         0x40
+.nbss               0x0800         0x42
  .nbss              0x0800         0x40 build/default/production/filtreNum.o
+ .nbss              0x0840          0x2 build/default/production/main.o
+                    0x0840                  _bit900
+                    0x0841                  _bit1100
 
-.text             0x0002ce        0x5d6
+.text             0x0002ce        0x6de
  .text            0x0002ce        0x53a build/default/production/filtreNum.o
                   0x0002ce                  _sos
                   0x0003b6                  _filtre900
                   0x0005da                  _filtre1100
- .text            0x000808         0x4a build/default/production/adc.o
-                  0x000808                  _adcTimerInit
-                  0x000826                  _adcPollingStart
-                  0x00082e                  _adcConversionFinished
-                  0x00083c                  _adcRead
- .text            0x000852         0x44 build/default/production/init.o
-                  0x000852                  _oscillatorInit
- .text            0x000896          0xe build/default/production/main.o
-                  0x000896                  _main
+ .text            0x000808        0x116 build/default/production/main.o
+                  0x000808                  __ISR_T2Interrupt
+                  0x000822                  _main
+ .text            0x00091e         0x4a build/default/production/adc.o
+                  0x00091e                  _adcTimerInit
+                  0x00093c                  _adcPollingStart
+                  0x000944                  _adcConversionFinished
+                  0x000952                  _adcRead
+ .text            0x000968         0x44 build/default/production/init.o
+                  0x000968                  _oscillatorInit
 
-.dinit            0x0008a4          0x8
- .dinit           0x0008a4          0x8 data_init
+.dinit            0x0009ac          0xe
+ .dinit           0x0009ac          0xe data_init
