@@ -22,7 +22,7 @@
  * Initialise l'ADC1 pour convertir AN0, sur 10 bits, avec auto-sampling et 
  * démarrage en software
  */
-void adcPollingInit(void);
+void adcTimerInit(void);
 
 /**
  * Démarre une conversion

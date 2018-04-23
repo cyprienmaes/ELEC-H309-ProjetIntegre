@@ -8,24 +8,12 @@
 #define nsquare 1048576
 #define gain 8
 
-/*Coefficients des filtres du second ordre pour 900Hz*/
-int coef9001[6] = {1024, 2048, 1024, 1024, -1907, 1012};
-int coef9002[6] = {1024, 2048, 1024, 1024, -1911, 1012};
-int coef9003[6] = {1024, -2048, 1024, 1024, -1911, 1019};
-int coef9004[6] =  {1024, -2048, 1024, 1024, -1920, 1019};
-
-/*Coefficients des filtres du second ordre pour 1100Hz*/
-int coef11001[6] = {1024, 2048, 1024, 1024, -1843, 1009};
-int coef11002[6] = {1024, 2048, 1024, 1024, -1848, 1009};
-int coef11003[6] = {1024, -2048, 1024, 1024, -1847, 1018};
-int coef11004[6] = {1024, -2048, 1024, 1024, -1859, 1018};
-
 typedef struct secondValues {
     long interval;
     long newval;
 }secondValues;
 
-secondValues sos(long coef[6], long bridge[2], long input) {
+secondValues sos(int coef[6], long bridge[2], long input) {
     secondValues this;
     this.interval = input*n - (coef[4]*bridge[1]) - (coef[5]*bridge[0]);
     this.newval = (coef[0]*this.interval)/n + (coef[1]*bridge[1]) + (coef[2]*bridge[0]);
@@ -34,6 +22,11 @@ secondValues sos(long coef[6], long bridge[2], long input) {
 
 int filtre900(int input)
 {
+    /*Coefficients des filtres du second ordre pour 900Hz*/
+    int coef9001[6] = {1024, 2048, 1024, 1024, -1907, 1012};
+    int coef9002[6] = {1024, 2048, 1024, 1024, -1911, 1012};
+    int coef9003[6] = {1024, -2048, 1024, 1024, -1911, 1019};
+    int coef9004[6] =  {1024, -2048, 1024, 1024, -1920, 1019};
     static long bridge1[2] = {0,0};
     static long bridge2[2] = {0,0};
     static long bridge3[2] = {0,0};
@@ -65,6 +58,11 @@ int filtre900(int input)
 
 int filtre1100(int input)
 {
+    /*Coefficients des filtres du second ordre pour 1100Hz*/
+    int coef11001[6] = {1024, 2048, 1024, 1024, -1843, 1009};
+    int coef11002[6] = {1024, 2048, 1024, 1024, -1848, 1009};
+    int coef11003[6] = {1024, -2048, 1024, 1024, -1847, 1018};
+    int coef11004[6] = {1024, -2048, 1024, 1024, -1859, 1018};
     static long bridge5[2] = {0,0};
     static long bridge6[2] = {0,0};
     static long bridge7[2] = {0,0};

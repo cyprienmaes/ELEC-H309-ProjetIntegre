@@ -12,15 +12,15 @@ extern "C" {
 }
 #endif
 
-#endif	/* FILTRENUM_H */
-
 typedef struct secondValues {
     long interval;
     long newval;
 }secondValues;
 
-secondValues sos(long coef[6], long *bridge, long input);
+secondValues sos(int coef[6], long *bridge, long input);
 
-int filtre900(int input,long *bridge1, long *bridge2, long *bridge3, long *bridge4);
+int filtre900(int input);
 
-int filtre1100(int input,long *bridge1, long *bridge2, long *bridge3, long *bridge4);
+int filtre1100(int input);
+
+#endif	/* FILTRENUM_H */

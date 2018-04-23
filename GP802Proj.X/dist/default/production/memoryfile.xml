@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/debug/GP802Proj.X.debug.elf">
+  <executable name="dist/default/production/GP802Proj.X.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>16384</length>
-      <used>144</used>
-      <free>16240</free>
+      <used>64</used>
+      <free>16320</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>131328</length>
-      <used>2559</used>
-      <free>128769</free>
+      <used>2562</used>
+      <free>128766</free>
     </memory>
   </executable>
 </project>

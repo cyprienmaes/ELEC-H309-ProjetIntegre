@@ -5,6 +5,7 @@
 #include "init.h"
 #include "adc.h"
 #include <xc.h>
+#include "filtreNum.h"
 
 int main(void)
 {   
@@ -13,12 +14,13 @@ int main(void)
     int output1100;
     
     oscillatorInit();
-    adcPollingInit();
+ //   adcTimerInit();
     // Configuration du Timer2 a 16 000 Hz 
-    PR2 = 250; // => PR2 = 1/16000 * 4 * 10^6
-    T2CONbits.TON = 1;
+    PR3 = 250; // => PR2 = 1/16000 * 4 * 10^6
+    T3CONbits.TON = 1;
     
     while(1) {
+        /*
         if (IFS0bits.T2IF) {
             IFS0bits.T2IF = 0;
             adcPollingStart();
@@ -26,6 +28,6 @@ int main(void)
             voltage = adcRead();
             output900 = filtre900(voltage);
             output1100 = filtre1100(voltage);
-        }
+        }*/
     }                                                                                                            
 }
