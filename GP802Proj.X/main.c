@@ -71,7 +71,7 @@ int main(void)
     IFS0bits.T3IF = 0;
     IFS0bits.T2IF = 0;                     //ADC1 Conversion Complete Interrupt Flag Status bit
     IEC0bits.T2IE = 1;                    //ADC1 Transmitter Interrupt Enable bit
-    while(1) {
+    while(1) {/*
         if (IFS0bits.T3IF) {
             IFS0bits.T3IF = 0;
             adcPollingStart();
@@ -93,6 +93,6 @@ int main(void)
             else bit1100 = '0';
             flagSeuil900 = 0;
             flagSeuil1100 = 0;
-        }
+        }*/
     }                                                                                                            
 }
