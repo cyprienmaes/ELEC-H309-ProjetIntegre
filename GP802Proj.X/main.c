@@ -11,6 +11,7 @@ void timer2Init(){
     T2CONbits.TON = 1;
 }
 
+
 void set_OCxRS_right(float dc){
     // Convertion du duty cycle (dc) désiré en commande OCxRS qui fixe le rapport 
     // cyclique du Output Compare --> qui actionne les moteurs
@@ -145,7 +146,23 @@ int main(void)
    timer2Init();
    motorsInit();
    encodersInit(); 
+   
+   //----------UART--------------
+   
+   
+    U1BRG = 40000000/(16*115200) - 1;
+    U1MODEbits.BRGH = 0;                    //High Baud Rate Enable bit (Standard mode)
+    U1MODEbits.UARTEN = 1;                  //all UARTx pins are controlled by UARTx
+    U1MODEbits.PDSEL = 0b00;                //8-bit data, no parity
+    U1MODEbits.STSEL = 0;                   //Stop Bit Selection bit, one stop bit
     
+    U1STAbits.UTXEN = 1;                    // Enable UART TX
+    RPINR18bits.U1RXR = 0b00110;            // Assign UART1 input to RP6
+    RPOR3bits.RP7R = 0b00011;               // Assign UART1 output to RP7
+   
+   
+   
+   //----------------------------
     //Variables
     
     //int dist1 = POS1CNT;
