@@ -173,7 +173,6 @@
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>
         <property key="CRC" value="true"/>
-        <property key="DAC 1" value="true"/>
         <property key="DUAL COMPARATOR" value="true"/>
         <property key="ECAN" value="true"/>
         <property key="Freeze All Other Peripherals" value="true"/>
@@ -192,7 +191,7 @@
         <property key="REAL TIME CLOCK AND CALENDAR" value="true"/>
         <property key="SPI 1" value="true"/>
         <property key="SPI 2" value="true"/>
-        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="SecureSegment.SegmentProgramming" value="SegmentProgrammingAll"/>
         <property key="TIMER1" value="true"/>
         <property key="TIMER2" value="true"/>
         <property key="TIMER3" value="true"/>
@@ -203,7 +202,6 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART 1" value="true"/>
         <property key="UART 2" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

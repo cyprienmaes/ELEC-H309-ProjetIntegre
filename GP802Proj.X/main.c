@@ -8,8 +8,6 @@
 #include "filtreNum.h"
 char bit900 = '0';
 char bit1100 = '0';
-long output900 = 0;
-long output1100 = 0;
 
 void _ISR _T2Interrupt(void) {
     IFS0bits.T2IF = 0;
@@ -28,6 +26,8 @@ int main(void)
     // a 900Hz = 17.8. On prend donc un nombre d'echantillon egal a 20 pour avoir
     // une marge de securite et aussi une frequence entiere d'envoi a l'UART.
     char nbEchant = 20;
+    int output900;
+    int output1100;
     
     // Definition Des seuils pour 1100Hz et 900Hz.
     int seuilMax1100 = 1010;
@@ -71,7 +71,7 @@ int main(void)
     IFS0bits.T3IF = 0;
     IFS0bits.T2IF = 0;                     //ADC1 Conversion Complete Interrupt Flag Status bit
     IEC0bits.T2IE = 1;                    //ADC1 Transmitter Interrupt Enable bit
-    while(1) {/*
+    while(1) {
         if (IFS0bits.T3IF) {
             IFS0bits.T3IF = 0;
             adcPollingStart();
@@ -93,6 +93,7 @@ int main(void)
             else bit1100 = '0';
             flagSeuil900 = 0;
             flagSeuil1100 = 0;
-        }*/
+               
+        }
     }                                                                                                            
 }
