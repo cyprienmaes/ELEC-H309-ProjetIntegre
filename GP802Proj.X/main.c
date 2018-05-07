@@ -182,6 +182,19 @@ int main(void)
     
     while(1) {	
         
+        /*
+         * We check if there is any data in the receive buffer. 
+         * The message will contain the command the motor will execute.
+         */
+        
+        if(U1STA.URXDA){                   //Receive Buffer Data Available bit 
+        
+            if(U1RXREG == 1){
+            }
+        
+        }
+        
+        
         if (IFS0bits.T2IF) {
             IFS0bits.T2IF = 0;
             t += 10;
