@@ -135,6 +135,20 @@ float ang_ref(float t, float ang_target){
     
     return ang_ref;
 }
+/*
+unsigned int read_message(){
+    int message1 = U1RXREG;
+    int message2 = U1RXREG;
+    int message1bits = 0b message1;
+    int message2bits = 0b message2;
+    message1bits >> 2;
+    
+    int message = message1bits + message2bits;
+    
+    return message;
+}
+
+*/
 
 int main(void)
 {
@@ -187,32 +201,24 @@ int main(void)
          * The message will contain the command the motor will execute.
          */
         
-        if(U1STA.URXDA){                   //Receive Buffer Data Available bit 
+        if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
         
             if(U1RXREG == 1){
-            }
+                
+                 if (IFS0bits.T2IF) {
+                        IFS0bits.T2IF = 0;
+                        t += 10;
         
-        }
+                        pos_right = POS1CNT - POS0;
+                        pos_left = POS2CNT - POS0;
         
-        
-        if (IFS0bits.T2IF) {
-            IFS0bits.T2IF = 0;
-            t += 10;
-        
-            pos_right = POS1CNT - POS0;
-            pos_left = POS2CNT - POS0;
-        
-            if( ang_mes(pos_left, pos_right) > -3.1416*2){
-                kp_fois_e_dist = ( l_ref(t, 0) - l_mes(pos_left, pos_right) )*0.00846;
-                kp_fois_e_ang = ( ang_ref(t,-3.1416*2) - ang_mes(pos_left, pos_right))*0.5;
-        
-                set_OCxRS_right(kp_fois_e_dist + kp_fois_e_ang);
-                set_OCxRS_left(kp_fois_e_dist - kp_fois_e_ang);
-            }
             
-            else {
-                set_OCxRS_right(0);
-                set_OCxRS_left(0);
+                        kp_fois_e_dist = ( l_ref(t, 0) - l_mes(pos_left, pos_right) )*0.00846;
+                        kp_fois_e_ang = ( ang_ref(t,-3.1416*2) - ang_mes(pos_left, pos_right))*0.5;
+        
+                        set_OCxRS_right(kp_fois_e_dist + kp_fois_e_ang);
+                        set_OCxRS_left(kp_fois_e_dist - kp_fois_e_ang);       
+                }
             }
         }
         
