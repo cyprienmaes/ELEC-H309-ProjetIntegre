@@ -28,6 +28,8 @@ int main(void)
     // a 900Hz = 17.8. On prend donc un nombre d'echantillon egal a 20 pour avoir
     // une marge de securite et aussi une frequence entiere d'envoi a l'UART.
     char nbEchant = 20;
+    int output900;
+    int output1100;
     
     // Definition Des seuils pour 1100Hz et 900Hz.
     int seuilMax1100 = 512;
@@ -70,7 +72,11 @@ int main(void)
     INTCON1bits.NSTDIS = 1;                 //Interrupt Nesting Disable bit
     IFS0bits.T3IF = 0;
     IFS0bits.T2IF = 0;                     //ADC1 Conversion Complete Interrupt Flag Status bit
+<<<<<<< HEAD
     IEC0bits.T2IE = 1;                 //ADC1 Transmitter Interrupt Enable bit
+=======
+    IEC0bits.T2IE = 1;                    //ADC1 Transmitter Interrupt Enable bit
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
     while(1) {
         if (IFS0bits.T3IF) {
             IFS0bits.T3IF = 0;
@@ -93,6 +99,10 @@ int main(void)
             else bit1100 = '0';
             flagSeuil900 = 0;
             flagSeuil1100 = 0;
+<<<<<<< HEAD
+=======
+               
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
         }
     }                                                                                                            
 }

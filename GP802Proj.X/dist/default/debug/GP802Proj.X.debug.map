@@ -1,30 +1,38 @@
 Microchip Technology Inc, v1.33 (A)
 
 Tool Name:
-  c:\program files (x86)\microchip\xc16\v1.33\bin\bin\..\bin/elf-ld.exe
+  /opt/microchip/xc16/v1.33/bin/bin/../bin/elf-ld
 
 Command:
   -p33FJ128MC802 \
   -o \
   dist/default/debug/GP802Proj.X.debug.elf \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/.. \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24H/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC30F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33C/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33F/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/.. \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../lib \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24E/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24F/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24H/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC30F/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33C/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33E/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33F/gld \
   build/default/debug/init.o \
   build/default/debug/main.o \
   build/default/debug/adc.o \
   build/default/debug/filtreNum.o \
+<<<<<<< HEAD
   -TC:\\Users\\cypri\\AppData\\Local\\Temp\\tmp00002544.00 \
   -TC:\\Users\\cypri\\AppData\\Local\\Temp\\tmp00002544.01 \
   -TC:\\Users\\cypri\\AppData\\Local\\Temp\\tmp00002544.02 \
   -TC:\\Users\\cypri\\AppData\\Local\\Temp\\tmp00002544.03 \
   -TC:\\Users\\cypri\\AppData\\Local\\Temp\\tmp00002544.04 \
+=======
+  -T/tmp/tmp00002d4d.00 \
+  -T/tmp/tmp00002d4d.01 \
+  -T/tmp/tmp00002d4d.02 \
+  -T/tmp/tmp00002d4d.03 \
+  -T/tmp/tmp00002d4d.04 \
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
   --defsym=__DEBUG=1 \
@@ -55,11 +63,11 @@ Command:
 Optional library libp33FJ128MC802.a not found
 Archive member included because of file (symbol)
 
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
                               (__resetPRI)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
-                              c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o) (__data_init_standard)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt_start_mode_normal.eo)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
+                              /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o) (__data_init_standard)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt_start_mode_normal.eo)
                               (__crt_start_mode_normal)
 
 
@@ -70,11 +78,18 @@ Program Memory  [Origin = 0x200, Length = 0x15600]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xf2           0x16b  (363)
+<<<<<<< HEAD
 .text                        0x2f2               0x58e           0x855  (2133)
 .dinit                       0x880                0x56            0x81  (129)
 .text                        0x8d6                0x8e            0xd5  (213)
 
                  Total program memory used (bytes):          0xb16  (2838) 2%
+=======
+.text                        0x2f2               0x6d8           0xa44  (2628)
+.dinit                       0x9ca                0x10            0x18  (24)
+
+                 Total program memory used (bytes):          0xbc7  (3015) 2%
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -95,9 +110,14 @@ reserve_data_0x824           0x824                 0x2             0x2  (2)
 reserve_data_0x826           0x826                0x2a            0x2a  (42)
 .nbss                        0x850                   0            0x40  (64)
 .ndata                       0x890                   0             0x2  (2)
+<<<<<<< HEAD
 .data                        0x892                   0            0x60  (96)
 
                  Total data memory used (bytes):           0xf2  (242) 1%
+=======
+
+                 Total data memory used (bytes):           0x92  (146) <1%
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 
 Dynamic Memory Usage
@@ -105,13 +125,20 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
+<<<<<<< HEAD
 stack                        0x8f2                              0x3f0e  (16142)
 
                  Maximum dynamic memory (bytes):         0x3f0e  (16142)
+=======
+stack                        0x892                              0x3f6e  (16238)
+
+                 Maximum dynamic memory (bytes):         0x3f6e  (16238)
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 
 External Symbols in Data Memory (by address):
 
+<<<<<<< HEAD
                     0x0850                  _bridge1
                     0x0858                  _bridge2
                     0x0860                  _bridge3
@@ -130,11 +157,16 @@ External Symbols in Data Memory (by address):
                     0x08ce                  _coef11002
                     0x08da                  _coef11003
                     0x08e6                  _coef11004
+=======
+                    0x0890                  _bit900
+                    0x0891                  _bit1100
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 External Symbols in Data Memory (by name):
 
                     0x0891                  _bit1100
                     0x0890                  _bit900
+<<<<<<< HEAD
                     0x0850                  _bridge1
                     0x0858                  _bridge2
                     0x0860                  _bridge3
@@ -151,17 +183,20 @@ External Symbols in Data Memory (by name):
                     0x089e                  _coef9002
                     0x08aa                  _coef9003
                     0x08b6                  _coef9004
+=======
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init_standard
                   0x000252                  __data_init
+                  0x000252                  __data_init_standard
                   0x0002c8                  __T2Interrupt
                   0x0002ec                  __DefaultInterrupt
                   0x0002f2                  _sos
                   0x0003da                  _filtre900
+<<<<<<< HEAD
                   0x000596                  _filtre1100
                   0x000756                  _main
                   0x0008d6                  _adcTimerInit
@@ -169,6 +204,15 @@ External Symbols in Program Memory (by address):
                   0x0008fc                  _adcConversionFinished
                   0x00090a                  _adcRead
                   0x000920                  _oscillatorInit
+=======
+                  0x0005fe                  _filtre1100
+                  0x00082c                  _main
+                  0x00093c                  _adcTimerInit
+                  0x00095a                  _adcPollingStart
+                  0x000962                  _adcConversionFinished
+                  0x000970                  _adcRead
+                  0x000986                  _oscillatorInit
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 External Symbols in Program Memory (by name):
 
@@ -178,6 +222,7 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
+<<<<<<< HEAD
                   0x0008fc                  _adcConversionFinished
                   0x0008f4                  _adcPollingStart
                   0x00090a                  _adcRead
@@ -186,6 +231,16 @@ External Symbols in Program Memory (by name):
                   0x0003da                  _filtre900
                   0x000756                  _main
                   0x000920                  _oscillatorInit
+=======
+                  0x000962                  _adcConversionFinished
+                  0x00095a                  _adcPollingStart
+                  0x000970                  _adcRead
+                  0x00093c                  _adcTimerInit
+                  0x0005fe                  _filtre1100
+                  0x0003da                  _filtre900
+                  0x00082c                  _main
+                  0x000986                  _oscillatorInit
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
                   0x0002f2                  _sos
 
 Memory Configuration
@@ -247,7 +302,7 @@ reserve_data_0x826
                     0x0001                  __DEBUG = 0x1
                     0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
 LOAD p33FJ128MC802
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
                     0xf80002                  __FSS = 0xf80002
                     0xf80004                  __FGS = 0xf80004
@@ -278,13 +333,13 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
 
 .text             0x000200         0xf2
  *(.init)
- .init            0x000200         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
-                  0x000200                  __resetPRI
+ .init            0x000200         0x4c /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
                   0x000200                  __reset
+                  0x000200                  __resetPRI
                   0x00023c                  __psv_init
- .init            0x00024c         0x7c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
-                  0x000252                  __data_init_standard
+ .init            0x00024c         0x7c /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
                   0x000252                  __data_init
+                  0x000252                  __data_init_standard
  *(.user_init)
  *(.handle)
  *(.isr*)
@@ -297,9 +352,9 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0002f0          0x2 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt_start_mode_normal.eo)
-                  0x0002f0                  __crt_start_mode
+                  0x0002f0          0x2 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt_start_mode_normal.eo)
                   0x0002f0                  __crt_start_mode_normal
+                  0x0002f0                  __crt_start_mode
 
 usercode
  *(usercode)
@@ -347,6 +402,7 @@ __FUID3
 .comment
  *(.comment)
 
+<<<<<<< HEAD
 .debug_info       0x000000       0x23e6
  *(.debug_info)
  .debug_info      0x000000        0x584 build/default/debug/init.o
@@ -356,10 +412,22 @@ __FUID3
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x39f
+=======
+.debug_info       0x000000       0x2328
+ *(.debug_info)
+ .debug_info      0x000000        0x58e build/default/debug/init.o
+ .debug_info      0x00058e       0x120b build/default/debug/main.o
+ .debug_info      0x001799        0x6da build/default/debug/adc.o
+ .debug_info      0x001e73        0x4b5 build/default/debug/filtreNum.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev     0x000000        0x372
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xd6 build/default/debug/init.o
  .debug_abbrev    0x0000d6        0x10f build/default/debug/main.o
  .debug_abbrev    0x0001e5         0xcb build/default/debug/adc.o
+<<<<<<< HEAD
  .debug_abbrev    0x0002b0         0xef build/default/debug/filtreNum.o
 
 .debug_line       0x000000        0x395
@@ -368,6 +436,16 @@ __FUID3
  .debug_line      0x0000e8        0x12f build/default/debug/main.o
  .debug_line      0x000217         0xf2 build/default/debug/adc.o
  .debug_line      0x000309         0x8c build/default/debug/filtreNum.o
+=======
+ .debug_abbrev    0x0002b0         0xc2 build/default/debug/filtreNum.o
+
+.debug_line       0x000000        0x338
+ *(.debug_line)
+ .debug_line      0x000000         0xc4 build/default/debug/init.o
+ .debug_line      0x0000c4        0x107 build/default/debug/main.o
+ .debug_line      0x0001cb         0xce build/default/debug/adc.o
+ .debug_line      0x000299         0x9f build/default/debug/filtreNum.o
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 .debug_frame      0x000000        0x194
  *(.debug_frame)
@@ -390,7 +468,11 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
+<<<<<<< HEAD
                   0x000000        0x1f3
+=======
+                  0x000000        0x127
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x50 build/default/debug/init.o
@@ -399,7 +481,11 @@ __FUID3
  .debug_pubnames
                   0x000093         0x5d build/default/debug/adc.o
  .debug_pubnames
+<<<<<<< HEAD
                   0x0000f0        0x103 build/default/debug/filtreNum.o
+=======
+                  0x0000f0         0x37 build/default/debug/filtreNum.o
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 .debug_ranges
  *(.debug_ranges)
@@ -1495,9 +1581,9 @@ __FUID3
                     0x0230                  UART2 = 0x230
                     0x0230                  _UART2 = 0x230
 START GROUP
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libm-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a
 END GROUP
 OUTPUT(dist/default/debug/GP802Proj.X.debug.elf elf32-pic30)
 LOAD default_isr
@@ -1525,12 +1611,13 @@ __c30_signature
  __c30_signature
                   0x00030f          0x6 build/default/debug/filtreNum.o
  __c30_signature
-                  0x000315          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x000315          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x00031b          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x00031b          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
 
 .nbss               0x0850         0x40
  .nbss              0x0850         0x40 build/default/debug/filtreNum.o
+<<<<<<< HEAD
                     0x0850                  _bridge1
                     0x0858                  _bridge2
                     0x0860                  _bridge3
@@ -1539,11 +1626,14 @@ __c30_signature
                     0x0878                  _bridge6
                     0x0880                  _bridge7
                     0x0888                  _bridge8
+=======
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 .ndata              0x0890          0x2
  .ndata             0x0890          0x2 build/default/debug/main.o
                     0x0890                  _bit900
                     0x0891                  _bit1100
+<<<<<<< HEAD
 
 .data               0x0892         0x60
  .data              0x0892         0x60 build/default/debug/filtreNum.o
@@ -1555,12 +1645,15 @@ __c30_signature
                     0x08ce                  _coef11002
                     0x08da                  _coef11003
                     0x08e6                  _coef11004
+=======
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
 
 .ivt._T2Interrupt
                   0x000022          0x2
  .ivt._T2Interrupt
                   0x000022          0x2 build/default/debug/main.o
 
+<<<<<<< HEAD
 .text             0x0002f2        0x58e
  .text            0x0002f2        0x464 build/default/debug/filtreNum.o
                   0x0002f2                  _sos
@@ -1580,3 +1673,22 @@ __c30_signature
                   0x00090a                  _adcRead
  .text            0x000920         0x44 build/default/debug/init.o
                   0x000920                  _oscillatorInit
+=======
+.text             0x0002f2        0x6d8
+ .text            0x0002f2        0x53a build/default/debug/filtreNum.o
+                  0x0002f2                  _sos
+                  0x0003da                  _filtre900
+                  0x0005fe                  _filtre1100
+ .text            0x00082c        0x110 build/default/debug/main.o
+                  0x00082c                  _main
+ .text            0x00093c         0x4a build/default/debug/adc.o
+                  0x00093c                  _adcTimerInit
+                  0x00095a                  _adcPollingStart
+                  0x000962                  _adcConversionFinished
+                  0x000970                  _adcRead
+ .text            0x000986         0x44 build/default/debug/init.o
+                  0x000986                  _oscillatorInit
+
+.dinit            0x0009ca         0x10
+ .dinit           0x0009ca         0x10 data_init
+>>>>>>> a8d96c113afa1e42aa940b8e7a02235fdcb93246
