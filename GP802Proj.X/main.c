@@ -8,14 +8,12 @@
 #include "filtreNum.h"
 char bit900 = '0';
 char bit1100 = '0';
-long output900 = 0;
-long output1100 = 0;
 
 void _ISR _T2Interrupt(void) {
     IFS0bits.T2IF = 0;
     if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
         //U1TXREG = bit900;   // Put the data in the transmit buffer
-        U1TXREG = bit1100;
+        U1TXREG = bit900;
     }
 }
 
@@ -24,16 +22,18 @@ int main(void)
 {   
     // Variable pour l'ADC.
     int voltage; 
+    long output900;
+    long output1100;
     // echantillon sur une periode a 1100Hz = 14.5 et echantillon sur une periode
     // a 900Hz = 17.8. On prend donc un nombre d'echantillon egal a 20 pour avoir
     // une marge de securite et aussi une frequence entiere d'envoi a l'UART.
     char nbEchant = 20;
     
     // Definition Des seuils pour 1100Hz et 900Hz.
-    int seuilMax1100 = 1010;
-    int seuilMin1100 = 10;
-    int seuilMax900 = 1024;
-    int seuilMin900 = 0;
+    int seuilMax1100 = 512;
+    int seuilMin1100 = 512;
+    int seuilMax900 = 2000;
+    int seuilMin900 = 2000;
     
     // flag pour le dépassement des seuils
     char flagSeuil1100 = 0;
@@ -70,8 +70,8 @@ int main(void)
     INTCON1bits.NSTDIS = 1;                 //Interrupt Nesting Disable bit
     IFS0bits.T3IF = 0;
     IFS0bits.T2IF = 0;                     //ADC1 Conversion Complete Interrupt Flag Status bit
-    IEC0bits.T2IE = 1;                    //ADC1 Transmitter Interrupt Enable bit
-    while(1) {/*
+    IEC0bits.T2IE = 1;                 //ADC1 Transmitter Interrupt Enable bit
+    while(1) {
         if (IFS0bits.T3IF) {
             IFS0bits.T3IF = 0;
             adcPollingStart();
@@ -85,7 +85,7 @@ int main(void)
             if (output1100 >= seuilMax1100)flagSeuil1100 +=1;
             flagBit +=1;
         }
-        if (flagBit == nbEchant - 1) {
+        if (flagBit == nbEchant) {
             flagBit = 0;
             if (flagSeuil900 >= 2) bit900 = '1';
             else bit900 = '0';
@@ -93,6 +93,6 @@ int main(void)
             else bit1100 = '0';
             flagSeuil900 = 0;
             flagSeuil1100 = 0;
-        }*/
+        }
     }                                                                                                            
 }

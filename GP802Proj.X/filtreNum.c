@@ -8,6 +8,25 @@
 #define nsquare 1048576
 #define gain 8
 
+long bridge1[2] = {0,0};
+long bridge2[2] = {0,0};
+long bridge3[2] = {0,0};
+long bridge4[2] = {0,0};
+long bridge5[2] = {0,0};
+long bridge6[2] = {0,0};
+long bridge7[2] = {0,0};
+long bridge8[2] = {0,0};
+
+int coef9001[6] = {1024, 2048, 1024, 1024, -1907, 1012};
+int coef9002[6] = {1024, 2048, 1024, 1024, -1911, 1012};
+int coef9003[6] = {1024, -2048, 1024, 1024, -1911, 1019};
+int coef9004[6] =  {1024, -2048, 1024, 1024, -1920, 1019};
+
+int coef11001[6] = {1024, 2048, 1024, 1024, -1843, 1009};
+int coef11002[6] = {1024, 2048, 1024, 1024, -1848, 1009};
+int coef11003[6] = {1024, -2048, 1024, 1024, -1847, 1018};
+int coef11004[6] = {1024, -2048, 1024, 1024, -1859, 1018};
+
 typedef struct secondValues {
     long interval;
     long newval;
@@ -20,22 +39,13 @@ secondValues sos(int coef[6], long bridge[2], long input) {
     return this;
 }
 
-int filtre900(int input)
+long filtre900(int input)
 {
-    /*Coefficients des filtres du second ordre pour 900Hz*/
-    int coef9001[6] = {1024, 2048, 1024, 1024, -1907, 1012};
-    int coef9002[6] = {1024, 2048, 1024, 1024, -1911, 1012};
-    int coef9003[6] = {1024, -2048, 1024, 1024, -1911, 1019};
-    int coef9004[6] =  {1024, -2048, 1024, 1024, -1920, 1019};
-    static long bridge1[2] = {0,0};
-    static long bridge2[2] = {0,0};
-    static long bridge3[2] = {0,0};
-    static long bridge4[2] = {0,0};
     long output1 = 0;
     long output2= 0;
     long output3 = 0;
     long output4 = 0;
-    int exit = 0;
+    long exit = 0;
 
     secondValues secondValues1 = sos(coef9001, bridge1, input);
     bridge1[0] = bridge1[1];
@@ -56,17 +66,8 @@ int filtre900(int input)
     return exit = 512 + output4;
 }
 
-int filtre1100(int input)
+long filtre1100(int input)
 {
-    /*Coefficients des filtres du second ordre pour 1100Hz*/
-    int coef11001[6] = {1024, 2048, 1024, 1024, -1843, 1009};
-    int coef11002[6] = {1024, 2048, 1024, 1024, -1848, 1009};
-    int coef11003[6] = {1024, -2048, 1024, 1024, -1847, 1018};
-    int coef11004[6] = {1024, -2048, 1024, 1024, -1859, 1018};
-    static long bridge5[2] = {0,0};
-    static long bridge6[2] = {0,0};
-    static long bridge7[2] = {0,0};
-    static long bridge8[2] = {0,0};
     long output1 = 0;
     long output2= 0;
     long output3 = 0;
