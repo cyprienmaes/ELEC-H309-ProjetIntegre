@@ -194,16 +194,19 @@ int main(void)
     POS1CNT = POS0;
     POS2CNT = POS0;
     
+    char receivedMessage ;
+    
     while(1) {	
         
         /*
          * We check if there is any data in the receive buffer. 
          * The message will contain the command the motor will execute.
          */
-        
-        if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
-        
-            if(U1RXREG == 1){
+       
+            if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
+            receivedMessage = U1RXREG;
+            }
+            if(receivedMessage == '1'){ 
                 
                  if (IFS0bits.T2IF) {
                         IFS0bits.T2IF = 0;
@@ -213,14 +216,14 @@ int main(void)
                         pos_left = POS2CNT - POS0;
         
             
-                        kp_fois_e_dist = ( l_ref(t, 0) - l_mes(pos_left, pos_right) )*0.00846;
-                        kp_fois_e_ang = ( ang_ref(t,-3.1416*2) - ang_mes(pos_left, pos_right))*0.5;
+                        kp_fois_e_dist = ( l_ref(t, 1000) - l_mes(pos_left, pos_right) )*0.00846;
+                        kp_fois_e_ang = ( ang_ref(t,0) - ang_mes(pos_left, pos_right))*0.5;
         
                         set_OCxRS_right(kp_fois_e_dist + kp_fois_e_ang);
                         set_OCxRS_left(kp_fois_e_dist - kp_fois_e_ang);       
                 }
             }
-        }
+        
         
     }                                                                                                                  
 }
