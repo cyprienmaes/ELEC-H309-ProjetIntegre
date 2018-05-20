@@ -22,7 +22,7 @@ _FWDT(FWDTEN_OFF);
 // Select internal FRC oscillator as clock source
 _FOSCSEL(FNOSC_FRC);
 // enables clock switching and configure the primary oscillator for a 10MHz crystal
-_FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_XT);
+_FOSC(FCKSM_CSECMD & OSCIOFNC_OFF & POSCMD_HS);
 
 
 void oscillatorInit(void) {

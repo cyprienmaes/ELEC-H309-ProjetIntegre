@@ -17,7 +17,7 @@ typedef struct secondValues {
     long newval;
 }secondValues;
 
-secondValues sos(int coef[6], long *bridge, long input);
+secondValues sos(int coef[6], long *bridge, long input, long gain);
 
 int filtre900(int input);
 
