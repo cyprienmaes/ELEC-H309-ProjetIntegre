@@ -13,20 +13,20 @@ void timer2Init(){
 
 
 void set_OCxRS_right(float dc){
-    // Convertion du duty cycle (dc) désiré en commande OCxRS qui fixe le rapport 
+    // Convertion du duty cycle (dc) dÃ©sirÃ© en commande OCxRS qui fixe le rapport 
     // cyclique du Output Compare --> qui actionne les moteurs
     
     if( dc <= -1 ){ OC2RS = 5000; }
-    else if(dc >= 1) { OC2RS = 10000; } // on s'assure que dc ne devienne pas nég
+    else if(dc >= 1) { OC2RS = 10000; } // on s'assure que dc ne devienne pas nÃ©g
     else { OC2RS = (dc*2500) + 7500; }
 }
 
 void set_OCxRS_left(float dc){
-    // Convertion du duty cycle (dc) désiré en commande OCxRS qui fixe le rapport 
+    // Convertion du duty cycle (dc) dÃ©sirÃ© en commande OCxRS qui fixe le rapport 
     // cyclique du Output Compare --> qui actionne les moteurs
     
     if( dc <= -1 ){ OC1RS = 10000; }
-    else if(dc >= 1) { OC1RS = 5000; } // on s'assure que dc ne devienne pas nég
+    else if(dc >= 1) { OC1RS = 5000; } // on s'assure que dc ne devienne pas nÃ©g
     else { OC1RS = (-(dc)*2500) + 7500; }
 }
 
@@ -64,9 +64,9 @@ void encodersInit(){
 
 float l_ref(float t, float l_target){
     float l_ref;
-    float a = 0.00025 ; // 0.5 m/(s^2) --> 0.0005 mm/(ms^2) 
+    float a = 0.0003 ; // 0.5 m/(s^2) --> 0.0005 mm/(ms^2) 
     float t1, l1, v_ref;
-    v_ref = 0.4; // mm/ms, v_ref est choisie dans la zone "linéaire" de la courbe v(dc) du robot
+    v_ref = 0.4; // mm/ms, v_ref est choisie dans la zone "linÃ©aire" de la courbe v(dc) du robot
     t1= v_ref/a;
     l1 = (a*t1*t1)/2;
     
@@ -75,7 +75,7 @@ float l_ref(float t, float l_target){
     else if (l_target > l1){ // PROFILE TRAPEZOIDAL
         float l2 = l_target - l1;
         float t2 = ((l2 - l1)/v_ref) + t1 ;
-        float t3 = t2 + t1; // si acceleration et deceleration ont la meme valeur, temps sont égaux
+        float t3 = t2 + t1; // si acceleration et deceleration ont la meme valeur, temps sont Ã©gaux
         
         if      (t <= t1){              l_ref = a*(t*t)/2 ;}
         else if (t >= t1 && t <= t2){   l_ref = l1 + ( v_ref*(t-t1) ) ;}
@@ -96,15 +96,15 @@ float l_ref(float t, float l_target){
 }
 
 float l_mes(int pos_left, int pos_right){
-    // Distance parcourue mesurée
-    float Rsur2 = 50.8/2; // rayon roue divisé par 2 (mm)
+    // Distance parcourue mesurÃ©e
+    float Rsur2 = 50.8/2; // rayon roue divisÃ© par 2 (mm)
     return ( (pos_right + pos_left)*(3.1416/180) )*Rsur2;
 }
 
 float ang_mes(int pos_left, int pos_right){
-    // Angle effectué mesuré
+    // Angle effectuÃ© mesurÃ©
     // ATTENTION POS1CNT= right et POS2CNT = left
-    float RsurE = 50.8/215; // rayon roues divisé par empattement (E = 215mm)
+    float RsurE = 50.8/215; // rayon roues divisÃ© par empattement (E = 215mm)
     float ang = (pos_right - pos_left)* RsurE*(3.1416/180);
     
     return ang;
@@ -112,29 +112,59 @@ float ang_mes(int pos_left, int pos_right){
 
 float ang_ref(float t, float ang_target){
     float ang_ref;
-    float ang_speed = 1.57/1000; //rad/ms vitesse de reference
-    //float ang_a = 0.00000157; //rad
+    float ang_speed = 2*(pi/2)/1000; //rad/ms vitesse de reference
+    float ang_a = ((pi/2)/1000)/1000; //rad
     if( ang_target < 0 ){ang_speed = -ang_speed;}
     float ti = ang_target/ang_speed;
     
-    //float t1 = ang_speed/ang_a;
-    //float ang1 = ang_a*t1*t1/2;
-    
-    //float ang2 = ang_target - t1;
-    //float t2 = ((ang2 - ang1)/ang_speed) + t1;
-    //float t3 = t1 + t2;
+    float t1 = ang_speed/ang_a;
+    float ang1 = ang_a*t1*t1/2;
     
     if (ang_target == 0){ang_ref = 0;}
-    else if( t <= ti){ang_ref = ang_speed*t;}
-    else if(t > ti){ang_ref = ang_target;}
+    //else if( t <= ti){ang_ref = ang_speed*t;}
+    //else if(t > ti){ang_ref = ang_target;}
     
-    //else if(t <= t1){           ang_ref = ang_a*t*t/2 ;}
-    //else if(t > t1 && t <= t2){ ang_ref = ang1 + ( ang_speed*(t-t1) ) ;}
-    //else if(t > t2 && t <= t3){ ang_ref = ang2 + ( ang_speed*(t-t2) ) - (ang_a*(t-t2)*(t-t2)/2);}
-    //else if(t > t3 ){           ang_ref = ang_target ;}
+    else if (ang_target > ang1){
+        float ang2 = ang_target - ang1;
+        float t2 = ((ang2 - ang1)/ang_speed) + t1;
+        float t3 = t1 + t2;
+        
+        if      (t <= t1){           ang_ref = (ang_a*t*t)/2 ;}
+        else if (t > t1 && t <= t2){ ang_ref = ang1 + ( ang_speed*(t-t1) ) ;}
+        else if (t > t2 && t <= t3){ ang_ref = ang2 + ( ang_speed*(t-t2) ) - (ang_a*(t-t2)*(t-t2)/2);}
+        else if (t > t3 ){           ang_ref = ang_target ;}
+    }
+    
+    else if (ang_target < ang1){ // PROFILE TRIANGULAIRE
+        t1 = sqrt(ang_target/ang_a);
+        ang1 = ang_target/2;
+        ang_speed = ang_a*t1;
+        if      (t < t1)              {  ang_ref = (ang_a*(t*t)/2) ;}
+        else if (t >= t1 && t < 2*t1) {  ang_ref = (ang_target/2) + ang_speed*(t-t1) - ang_a*(t-t1)*(t-t1)/2;}
+        else if (t >= 2*t1)           {  ang_ref = ang_target;}
+    }
     
     return ang_ref;
 }
+
+void set_targets(char order, int parameter, float *l_target, float*ang_target){
+    // Fonction recevant un ordre et un parametre afin de mettre Ã  jours les nouvelles consignes de positon du robot
+    if(order == 0b00){ //Avance
+        *l_target = (float) parameter;
+        *ang_target = 0;
+    }
+    
+    if(order == 0b01){ //Tourne a gauche
+        *l_target = 0;
+        *ang_target = (float) parameter;
+    }
+    
+    if(order == 0b10){ //Tourne a drotie
+        *l_target = 0;
+        *ang_target = (float) (-1) * parameter;
+    }
+}
+
 /*
 unsigned int read_message(){
     int message1 = U1RXREG;
@@ -195,6 +225,10 @@ int main(void)
     POS2CNT = POS0;
     
     char receivedMessage ;
+    char order;
+    char parameter;
+    float* l_target;
+    float* ang_target;
     
     while(1) {	
         
@@ -205,7 +239,22 @@ int main(void)
        
             if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
             receivedMessage = U1RXREG;
+	    	// LECTURE DE L'ORDE ET DU PARAMETRE DANS LE MESSAGE RECU
+		    // order = ;
+		    // parameter = ;
+		    // 
+		    // MISE A JOUR DES TARGETS EN FONCTION DU MESSAGE RECU
+                    // set_targets(order, parameter, *l_target, *ang_target);
+		    // 
+		    // IL FAUDRAIT UNE REINITIALISATION DES COMPTEURS SI ON A UN NOUVEL ORDRE, QUELQUE COSE COMME: 
+		    // if(nouvelleConsigne){
+		    //    t = 0;
+		    //    POS1CNT = POS0;
+		    //    POS2CNT = POS0;
+		    // }
+		    
             }
+	    
             if(receivedMessage == '1'){ 
                 
                  if (IFS0bits.T2IF) {
@@ -216,8 +265,8 @@ int main(void)
                         pos_left = POS2CNT - POS0;
         
             
-                        kp_fois_e_dist = ( l_ref(t, 1000) - l_mes(pos_left, pos_right) )*0.00846;
-                        kp_fois_e_ang = ( ang_ref(t,0) - ang_mes(pos_left, pos_right))*0.5;
+                        kp_fois_e_dist = ( l_ref(t, *l_target) - l_mes(pos_left, pos_right) )*0.00846;
+                        kp_fois_e_ang = ( ang_ref(t, *ang_target) - ang_mes(pos_left, pos_right))*0.5;
         
                         set_OCxRS_right(kp_fois_e_dist + kp_fois_e_ang);
                         set_OCxRS_left(kp_fois_e_dist - kp_fois_e_ang);       
