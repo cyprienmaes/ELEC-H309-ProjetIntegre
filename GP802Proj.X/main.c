@@ -6,6 +6,11 @@
 char order;
 char parameter;
 
+typedef struct target {
+    float l_target;
+    float ang_target;
+} target;
+
 void timer2Init(){
     // Configuration of timer 2 for PWM use
     T2CONbits.TCKPS = 0b01; // Prescaler 8:1
@@ -150,22 +155,24 @@ float ang_ref(float t, float ang_target){
     return ang_ref;
 }
 
-void set_targets(char order, int parameter, float *l_target, float*ang_target){
+target set_targets(char order, int parameter){
     // Fonction recevant un ordre et un parametre afin de mettre à jours les nouvelles consignes de positon du robot
+    target TARGET;
     if(order == 0b00){ //Avance
-        *l_target = (float) parameter;
-        *ang_target = 0;
+        TARGET.l_target = (float) parameter;
+        TARGET.ang_target = 0;
     }
     
     if(order == 0b01){ //Tourne a gauche
-        *l_target = 0;
-        *ang_target = (float) parameter;
+        TARGET.l_target = 0;
+        TARGET.ang_target = (float) parameter;
     }
     
     if(order == 0b10){ //Tourne a drotie
-        *l_target = 0;
-        *ang_target = (float) (-1) * parameter;
+        TARGET.l_target = 0;
+        TARGET.ang_target = (float) (-1) * parameter;
     }
+    return TARGET;
 }
 
 
@@ -224,8 +231,7 @@ int main(void)
     POS2CNT = POS0;
     
     char receivedMessage ;
-    float* l_target;
-    float* ang_target;
+    target TARGET;
     
     while(1) {	
         
@@ -239,16 +245,10 @@ int main(void)
 	    	// LECTURE DE L'ORDE ET DU PARAMETRE DANS LE MESSAGE RECU
             
 		    // MISE A JOUR DES TARGETS EN FONCTION DU MESSAGE RECU
-                    set_targets(order, parameter, *l_target, *ang_target);
+                    TARGET = set_targets(order, parameter);
                     order = 0;
                     parameter = 0;
 		    // 
-		     
-		     //if(nouvelleConsigne){
-		       // t = 0;
-		       // POS1CNT = POS0;
-		       // POS2CNT = POS0;
-		     //}
 		    
             }
 	    
@@ -262,8 +262,8 @@ int main(void)
                         pos_left = POS2CNT - POS0;
         
             
-                        kp_fois_e_dist = ( l_ref(t, *l_target) - l_mes(pos_left, pos_right) )*0.00846;
-                        kp_fois_e_ang = ( ang_ref(t, *ang_target) - ang_mes(pos_left, pos_right))*0.5;
+                        kp_fois_e_dist = ( l_ref(t, TARGET.l_target) - l_mes(pos_left, pos_right) )*0.00846;
+                        kp_fois_e_ang = ( ang_ref(t, TARGET.ang_target) - ang_mes(pos_left, pos_right))*0.5;
         
                         set_OCxRS_right(kp_fois_e_dist + kp_fois_e_ang);
                         set_OCxRS_left(kp_fois_e_dist - kp_fois_e_ang);       
