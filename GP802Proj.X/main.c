@@ -26,9 +26,7 @@ void _ISR _T2Interrupt(void) {
         //U1TXREG = bit900;
         if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
         U1TXREG = separate_message(message).message2;   // Put the data in the transmit buffer
-        
-       
-    }
+        }
         // U1TXREG = bit1100;
     }
 }
