@@ -3,6 +3,9 @@
 #include"math.h"
 #include <xc.h>
 
+char order;
+char parameter;
+
 void timer2Init(){
     // Configuration of timer 2 for PWM use
     T2CONbits.TCKPS = 0b01; // Prescaler 8:1
@@ -166,17 +169,12 @@ void set_targets(char order, int parameter, float *l_target, float*ang_target){
 }
 
 
-unsigned int read_message(){
-    int message1 = U1RXREG;
+void read_message(){
+    char message1 = U1RXREG;
     while(!U1STAbits.URXDA){} // Attente de la deuxieme partie du message
-    int message2 = U1RXREG;
-    int message1bits = 0b message1;
-    int message2bits = 0b message2;
-    message1bits >> 2;
-    
-    int message = message1bits + message2bits;
-    
-    return message;
+    char message2 = U1RXREG;
+    order = message1;
+    parameter = message2;
 }
 
 
@@ -226,8 +224,6 @@ int main(void)
     POS2CNT = POS0;
     
     char receivedMessage ;
-    char order;
-    char parameter;
     float* l_target;
     float* ang_target;
     
@@ -241,18 +237,18 @@ int main(void)
             if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
             receivedMessage =  read_message();
 	    	// LECTURE DE L'ORDE ET DU PARAMETRE DANS LE MESSAGE RECU
-		    // order = ;
-		    // parameter = ;
-		    // 
+            
 		    // MISE A JOUR DES TARGETS EN FONCTION DU MESSAGE RECU
-                    // set_targets(order, parameter, *l_target, *ang_target);
+                    set_targets(order, parameter, *l_target, *ang_target);
+                    order = 0;
+                    parameter = 0;
 		    // 
-		    // IL FAUDRAIT UNE REINITIALISATION DES COMPTEURS SI ON A UN NOUVEL ORDRE, QUELQUE COSE COMME: 
-		    // if(nouvelleConsigne){
-		    //    t = 0;
-		    //    POS1CNT = POS0;
-		    //    POS2CNT = POS0;
-		    // }
+		     
+		     //if(nouvelleConsigne){
+		       // t = 0;
+		       // POS1CNT = POS0;
+		       // POS2CNT = POS0;
+		     //}
 		    
             }
 	    
