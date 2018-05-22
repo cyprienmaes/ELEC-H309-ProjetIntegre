@@ -165,9 +165,10 @@ void set_targets(char order, int parameter, float *l_target, float*ang_target){
     }
 }
 
-/*
+
 unsigned int read_message(){
     int message1 = U1RXREG;
+    while(!U1STAbits.URXDA){} // Attente de la deuxieme partie du message
     int message2 = U1RXREG;
     int message1bits = 0b message1;
     int message2bits = 0b message2;
@@ -178,7 +179,7 @@ unsigned int read_message(){
     return message;
 }
 
-*/
+
 
 int main(void)
 {
@@ -238,7 +239,7 @@ int main(void)
          */
        
             if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
-            receivedMessage = U1RXREG;
+            receivedMessage =  read_message();
 	    	// LECTURE DE L'ORDE ET DU PARAMETRE DANS LE MESSAGE RECU
 		    // order = ;
 		    // parameter = ;
