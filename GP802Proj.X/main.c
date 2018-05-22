@@ -4,22 +4,44 @@
 #include <math.h>
 #include "init.h"
 #include "adc.h"
+#include "FskDetector.h"
 #include <xc.h>
 #include "filtreNum.h"
 char bit900 = '0';
 char bit1100 = '0';
 long output900 = 0;
 long output1100 = 0;
-long voltage = 0; 
+long voltage = 0;
+int message = 0;
+
+typedef struct messagesSplit {
+    char message1;
+    char message2;
+}messageSplit;
 
 void _ISR _T2Interrupt(void) {
     IFS0bits.T2IF = 0;
     if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
-        U1TXREG = bit900;   // Put the data in the transmit buffer
+        U1TXREG = separate_message(message).message1;   // Put the data in the transmit buffer
+        //U1TXREG = bit900;
+        if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
+        U1TXREG = separate_message(message).message2;   // Put the data in the transmit buffer
+        
+       
+    }
         // U1TXREG = bit1100;
     }
 }
 
+messageSplit separate_message(int m){
+    messageSplit sendMessage;
+    int bitsmessage1  = m & 0b0000001100000000;
+    bitsmessage1 = bitsmessage1 >> 8;
+    int bitsmessage2 = m & 0b0000000011111111;
+    sendMessage.message1 = char (bitsmessage1);
+    sendMessage.message2 = char (bitsmessage2); 
+    return sendMessage;
+}   
     
 int main(void)
 {   
@@ -86,12 +108,24 @@ int main(void)
         }
         if (flagBit == nbEchant) {
             flagBit = 0;
-            if (flagSeuil900 >= 2) bit900 = '1';
+            if (flagSeuil900 >= 2) {
+                bit900 = '1';
+                message = fskDetector(1,0);
+            }
             else bit900 = '0';
-            if (flagSeuil1100 >= 2) bit1100 = '1';
-            else bit1100 = '0';
+            if (flagSeuil1100 >= 2) {
+                bit1100 = '1';
+                message = fskDetector(0,1);
+            }
+            else {
+                bit1100 = '0';
+                message = fskDetector(0,0);
+            }
             flagSeuil900 = 0;
             flagSeuil1100 = 0;
+            if(message != 0){
+                
+            }
 
         }
     }                                                                                                            
