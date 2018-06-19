@@ -28,6 +28,7 @@ void _ISR _T2Interrupt(void) {
         U1TXREG = separate_message(message).message2;   // Put the data in the transmit buffer
         }
         // U1TXREG = bit1100;
+        
     }
 }
 
