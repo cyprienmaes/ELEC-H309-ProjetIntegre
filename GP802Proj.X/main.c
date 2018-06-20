@@ -13,35 +13,73 @@ long output900 = 0;
 long output1100 = 0;
 long voltage = 0;
 int message = 0;
+int timerCount = 0;
 
-typedef struct messagesSplit {
+typedef struct messageSplit {
     char message1;
     char message2;
 }messageSplit;
-
-void _ISR _T2Interrupt(void) {
-    IFS0bits.T2IF = 0;
-    if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
-        U1TXREG = separate_message(message).message1;   // Put the data in the transmit buffer
-        //U1TXREG = bit900;
-        if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
-        U1TXREG = separate_message(message).message2;   // Put the data in the transmit buffer
-        }
-        // U1TXREG = bit1100;
-        
-    }
-}
 
 messageSplit separate_message(int m){
     messageSplit sendMessage;
     int bitsmessage1  = m & 0b0000001100000000;
     bitsmessage1 = bitsmessage1 >> 8;
     int bitsmessage2 = m & 0b0000000011111111;
-    sendMessage.message1 = char (bitsmessage1);
-    sendMessage.message2 = char (bitsmessage2); 
+    sendMessage.message1 = (char) bitsmessage1;
+    sendMessage.message2 = (char) bitsmessage2; 
     return sendMessage;
 }   
+
+void _ISR _T2Interrupt(void) {
+    timerCount = 1 + timerCount;
+    IFS0bits.T2IF = 0;
+    if(timerCount == 10){
+        
+        if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
+            message = 50;
+            U1TXREG = separate_message(message).message1;   // Put the data in the transmit buffer
+            //U1TXREG = bit900;
+            //U1TXREG = 0b00;
+            //U1TXREG = '7';
+            //if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
+            
+            while(U1STAbits.UTXBF){}
+            U1TXREG = separate_message(message).message2;   // Put the data in the transmit buffer
+            //U1TXREG = 50;
+            //}
+            // U1TXREG = bit1100;
+
+        }
+    }
     
+    if(timerCount == 20){
+        message = 0b0101011010;
+        if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
+            //U1TXREG = 0b01;
+            U1TXREG = separate_message(message).message1;   // Put the data in the transmit buffer
+
+            while(U1STAbits.UTXBF){}
+            //U1TXREG = 90;    
+            U1TXREG = separate_message(message).message2;   // Put the data in the transmit buffer
+        }        
+    }
+    
+    if(timerCount == 30){
+        timerCount = 0;
+        message = 0b1001011010;
+        if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
+            //U1TXREG = 0b10;
+            U1TXREG = separate_message(message).message1;   // Put the data in the transmit buffer
+
+            while(U1STAbits.UTXBF){}
+            //U1TXREG = 90;        
+            U1TXREG = separate_message(message).message2;   // Put the data in the transmit buffer
+        }        
+    }
+    
+}
+
+
 int main(void)
 {   
     // Variable pour l'ADC.
@@ -67,7 +105,10 @@ int main(void)
     adcTimerInit();
     // Configuration du Timer2 pour pour la frequence d'envoie à l'UART égale a 800Hz.
     
-    PR2 = 5000; // => PR2 = 1/800 * 4 * 10^6
+    PR2 = 65535; // => PR2 = 1/800 * 4 * 10^6
+    
+    //PR2 = 5000; // => PR2 = 1/800 * 4 * 10^6
+    T2CONbits.TCKPS = 0b11;  //Timer1 Input Clock Prescale Select bits 1:256
     T2CONbits.TON = 1;
     
     // Configuration du Timer3 a 16 000 Hz pour echantillonage.
@@ -92,6 +133,8 @@ int main(void)
     IFS0bits.T2IF = 0;                     //ADC1 Conversion Complete Interrupt Flag Status bit
     IEC0bits.T2IE = 1;                    //ADC1 Transmitter Interrupt Enable bit
     while(1) {
+        
+        
         if (IFS0bits.T3IF) {
             IFS0bits.T3IF = 0;
             adcPollingStart();
