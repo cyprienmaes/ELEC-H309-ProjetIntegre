@@ -6,7 +6,7 @@ Tool Name:
 Command:
   -p33FJ128MC802 \
   -o \
-  dist/default/debug/GP802Proj.X.debug.elf \
+  dist/default/production/GP802Proj.X.production.elf \
   -L/opt/microchip/xc16/v1.33/bin/bin/.. \
   -L/opt/microchip/xc16/v1.33/bin/bin/../../lib \
   -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24E/gld \
@@ -16,21 +16,13 @@ Command:
   -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33C/gld \
   -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33E/gld \
   -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33F/gld \
-  build/default/debug/init.o \
-  build/default/debug/main.o \
-  build/default/debug/adc.o \
-  build/default/debug/filtreNum.o \
-  build/default/debug/FskDetector.o \
-  -T/tmp/tmp00002ac5.00 \
-  -T/tmp/tmp00002ac5.01 \
-  -T/tmp/tmp00002ac5.02 \
-  -T/tmp/tmp00002ac5.03 \
-  -T/tmp/tmp00002ac5.04 \
+  build/default/production/init.o \
+  build/default/production/main.o \
+  build/default/production/adc.o \
+  build/default/production/filtreNum.o \
+  build/default/production/FskDetector.o \
   --defsym=__MPLAB_BUILD=1 \
-  --defsym=__MPLAB_DEBUG=1 \
-  --defsym=__DEBUG=1 \
-  --defsym=__MPLAB_DEBUGGER_PK3=1 \
-  -Tp33FJ128MC802.gld.05 \
+  -Tp33FJ128MC802.gld.00 \
   --stack=16 \
   --check-sections \
   --data-init \
@@ -42,10 +34,10 @@ Command:
   --stackguard=16 \
   --no-force-link \
   --smart-io \
-  -Map=dist/default/debug/GP802Proj.X.debug.map \
+  -Map=dist/default/production/GP802Proj.X.production.map \
   --report-mem \
   --memorysummary \
-  dist/default/debug/memoryfile.xml \
+  dist/default/production/memoryfile.xml \
   -start-group \
   --library=pic30-elf \
   --library=m-elf \
@@ -63,7 +55,7 @@ Archive member included because of file (symbol)
 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt_start_mode_normal.eo)
                               (__crt_start_mode_normal)
 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(puts.eo)
-                              build/default/debug/FskDetector.o (_puts)
+                              build/default/production/FskDetector.o (_puts)
 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(fputc.eo)
                               /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(puts.eo) (_fputc)
 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(_iob.eo)
@@ -82,13 +74,13 @@ Program Memory  [Origin = 0x200, Length = 0x15600]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x39c           0x56a  (1386)
-.const                       0x59c                0x3c            0x5a  (90)
-.text                        0x5d8               0x5f2           0x8eb  (2283)
-.dinit                       0xbca                0xd6           0x141  (321)
-.text                        0xca0               0x140           0x1e0  (480)
+.text                        0x200               0x394           0x55e  (1374)
+.const                       0x594                0x3c            0x5a  (90)
+.text                        0x5d0               0x5f2           0x8eb  (2283)
+.dinit                       0xbc2                0xd6           0x141  (321)
+.text                        0xc98               0x140           0x1e0  (480)
 
-                 Total program memory used (bytes):         0x11d0  (4560) 3%
+                 Total program memory used (bytes):         0x11c4  (4548) 3%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -102,18 +94,13 @@ Data Memory  [Origin = 0x800, Length = 0x4000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-reserve_data_0x800           0x800                0x20            0x20  (32)
-reserve_data_0x820           0x820                 0x2             0x2  (2)
-reserve_data_0x822           0x822                 0x2             0x2  (2)
-reserve_data_0x824           0x824                 0x2             0x2  (2)
-reserve_data_0x826           0x826                0x2a            0x2a  (42)
-.nbss                        0x850                   0            0x60  (96)
-.ndata                       0x8b0                   0             0x2  (2)
-.data                        0x8b2                   0            0xe6  (230)
-.bss                         0x998                   0             0x8  (8)
-.data                        0x9a0                   0             0x2  (2)
+.nbss                        0x800                   0            0x60  (96)
+.ndata                       0x860                   0             0x2  (2)
+.data                        0x862                   0            0xe6  (230)
+.bss                         0x948                   0             0x8  (8)
+.data                        0x950                   0             0x2  (2)
 
-                 Total data memory used (bytes):          0x1a2  (418) 2%
+                 Total data memory used (bytes):          0x152  (338) 2%
 
 
 Dynamic Memory Usage
@@ -121,62 +108,62 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x9a2                              0x3e5e  (15966)
+stack                        0x952                              0x3eae  (16046)
 
-                 Maximum dynamic memory (bytes):         0x3e5e  (15966)
+                 Maximum dynamic memory (bytes):         0x3eae  (16046)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0890                  _output900
-                    0x0894                  _output1100
-                    0x0898                  _voltage
-                    0x089c                  _message
-                    0x089e                  _timerCount
-                    0x08a0                  _variable
-                    0x08b0                  _bit900
-                    0x08b1                  _bit1100
-                    0x08b2                  _coef9001
-                    0x08ca                  _coef9002
-                    0x08e2                  _coef9003
-                    0x08fa                  _coef9004
-                    0x0912                  _coef11001
-                    0x092a                  _coef11002
-                    0x0942                  _coef11003
-                    0x095a                  _coef11004
-                    0x0972                  __iob
-                    0x0996                  __Files
-                    0x0998                  __outdone
-                    0x0999                  __sibuf
-                    0x099b                  __sobuf
-                    0x099e                  _newMessage
-                    0x09a0                  ___C30_UART
+                    0x0840                  _output900
+                    0x0844                  _output1100
+                    0x0848                  _voltage
+                    0x084c                  _message
+                    0x084e                  _timerCount
+                    0x0850                  _variable
+                    0x0860                  _bit900
+                    0x0861                  _bit1100
+                    0x0862                  _coef9001
+                    0x087a                  _coef9002
+                    0x0892                  _coef9003
+                    0x08aa                  _coef9004
+                    0x08c2                  _coef11001
+                    0x08da                  _coef11002
+                    0x08f2                  _coef11003
+                    0x090a                  _coef11004
+                    0x0922                  __iob
+                    0x0946                  __Files
+                    0x0948                  __outdone
+                    0x0949                  __sibuf
+                    0x094b                  __sobuf
+                    0x094e                  _newMessage
+                    0x0950                  ___C30_UART
 
 External Symbols in Data Memory (by name):
 
-                    0x0996                  __Files
-                    0x09a0                  ___C30_UART
-                    0x0972                  __iob
-                    0x0998                  __outdone
-                    0x0999                  __sibuf
-                    0x099b                  __sobuf
-                    0x08b1                  _bit1100
-                    0x08b0                  _bit900
-                    0x0912                  _coef11001
-                    0x092a                  _coef11002
-                    0x0942                  _coef11003
-                    0x095a                  _coef11004
-                    0x08b2                  _coef9001
-                    0x08ca                  _coef9002
-                    0x08e2                  _coef9003
-                    0x08fa                  _coef9004
-                    0x089c                  _message
-                    0x099e                  _newMessage
-                    0x0894                  _output1100
-                    0x0890                  _output900
-                    0x089e                  _timerCount
-                    0x08a0                  _variable
-                    0x0898                  _voltage
+                    0x0946                  __Files
+                    0x0950                  ___C30_UART
+                    0x0922                  __iob
+                    0x0948                  __outdone
+                    0x0949                  __sibuf
+                    0x094b                  __sobuf
+                    0x0861                  _bit1100
+                    0x0860                  _bit900
+                    0x08c2                  _coef11001
+                    0x08da                  _coef11002
+                    0x08f2                  _coef11003
+                    0x090a                  _coef11004
+                    0x0862                  _coef9001
+                    0x087a                  _coef9002
+                    0x0892                  _coef9003
+                    0x08aa                  _coef9004
+                    0x084c                  _message
+                    0x094e                  _newMessage
+                    0x0844                  _output1100
+                    0x0840                  _output900
+                    0x084e                  _timerCount
+                    0x0850                  _variable
+                    0x0848                  _voltage
 
 External Symbols in Program Memory (by address):
 
@@ -185,42 +172,42 @@ External Symbols in Program Memory (by address):
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x0002c8                  __T2Interrupt
-                  0x0003da                  __DefaultInterrupt
-                  0x000464                  _fputs
-                  0x000480                  _puts
-                  0x0005d8                  _sos
-                  0x0006d8                  _filtre900
-                  0x000878                  _filtre1100
-                  0x0009e6                  _fskDetector
-                  0x000ca0                  _separate_message
-                  0x000cd0                  _main
-                  0x000d52                  _adcTimerInit
-                  0x000d70                  _adcPollingStart
-                  0x000d78                  _adcConversionFinished
-                  0x000d86                  _adcRead
-                  0x000d9c                  _oscillatorInit
+                  0x0003d2                  __DefaultInterrupt
+                  0x00045c                  _fputs
+                  0x000478                  _puts
+                  0x0005d0                  _sos
+                  0x0006d0                  _filtre900
+                  0x000870                  _filtre1100
+                  0x0009de                  _fskDetector
+                  0x000c98                  _separate_message
+                  0x000cc8                  _main
+                  0x000d4a                  _adcTimerInit
+                  0x000d68                  _adcPollingStart
+                  0x000d70                  _adcConversionFinished
+                  0x000d7e                  _adcRead
+                  0x000d94                  _oscillatorInit
 
 External Symbols in Program Memory (by name):
 
-                  0x0003da                  __DefaultInterrupt
+                  0x0003d2                  __DefaultInterrupt
                   0x0002c8                  __T2Interrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000d78                  _adcConversionFinished
-                  0x000d70                  _adcPollingStart
-                  0x000d86                  _adcRead
-                  0x000d52                  _adcTimerInit
-                  0x000878                  _filtre1100
-                  0x0006d8                  _filtre900
-                  0x000464                  _fputs
-                  0x0009e6                  _fskDetector
-                  0x000cd0                  _main
-                  0x000d9c                  _oscillatorInit
-                  0x000480                  _puts
-                  0x000ca0                  _separate_message
-                  0x0005d8                  _sos
+                  0x000d70                  _adcConversionFinished
+                  0x000d68                  _adcPollingStart
+                  0x000d7e                  _adcRead
+                  0x000d4a                  _adcTimerInit
+                  0x000870                  _filtre1100
+                  0x0006d0                  _filtre900
+                  0x00045c                  _fputs
+                  0x0009de                  _fskDetector
+                  0x000cc8                  _main
+                  0x000d94                  _oscillatorInit
+                  0x000478                  _puts
+                  0x000c98                  _separate_message
+                  0x0005d0                  _sos
 
 Memory Configuration
 
@@ -247,40 +234,12 @@ FUID3            0xf80016           0x000002
 
 Linker script and memory map
 
-LOAD build/default/debug/init.o
-LOAD build/default/debug/main.o
-LOAD build/default/debug/adc.o
-LOAD build/default/debug/filtreNum.o
-LOAD build/default/debug/FskDetector.o
-
-reserve_data_0x800
-                    0x0800         0x20
-                    0x0820                  . = 0x20
- *fill*             0x0800         0x2000
-
-reserve_data_0x820
-                    0x0820          0x2
-                    0x0822                  . = 0x2
- *fill*             0x0820          0x200
-
-reserve_data_0x822
-                    0x0822          0x2
-                    0x0824                  . = 0x2
- *fill*             0x0822          0x200
-
-reserve_data_0x824
-                    0x0824          0x2
-                    0x0826                  . = 0x2
- *fill*             0x0824          0x200
-
-reserve_data_0x826
-                    0x0826         0x2a
-                    0x0850                  . = 0x2a
- *fill*             0x0826         0x2a00
+LOAD build/default/production/init.o
+LOAD build/default/production/main.o
+LOAD build/default/production/adc.o
+LOAD build/default/production/filtreNum.o
+LOAD build/default/production/FskDetector.o
                     0x0001                  __MPLAB_BUILD = 0x1
-                    0x0001                  __MPLAB_DEBUG = 0x1
-                    0x0001                  __DEBUG = 0x1
-                    0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
 LOAD p33FJ128MC802
 LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
@@ -311,7 +270,7 @@ LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x39c
+.text             0x000200        0x394
  *(.init)
  .init            0x000200         0x4c /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
                   0x000200                  __reset
@@ -323,29 +282,29 @@ LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8        0x112 build/default/debug/main.o
+ .isr.text        0x0002c8        0x10a build/default/production/main.o
                   0x0002c8                  __T2Interrupt
- .isr             0x0003da          0x4 default_isr
-                  0x0003da                  __DefaultInterrupt
+ .isr             0x0003d2          0x4 default_isr
+                  0x0003d2                  __DefaultInterrupt
  *(.libc)
- .libc            0x0003de         0x84 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(write.eo)
-                  0x0003de                  _write
+ .libc            0x0003d6         0x84 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(write.eo)
+                  0x0003d6                  _write
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x000462          0x2 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt_start_mode_normal.eo)
-                  0x000462                  __crt_start_mode_normal
-                  0x000462                  __crt_start_mode
- .libc.fputs      0x000464         0x1c /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(puts.eo)
-                  0x000464                  _fputs
- .libc.puts       0x000480         0x14 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(puts.eo)
-                  0x000480                  _puts
- .libc.fputc      0x000494         0x86 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(fputc.eo)
-                  0x000494                  _fputc
- .libc._flsbuf    0x00051a         0x7e /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(flsbuf.eo)
-                  0x00051a                  __flsbuf
- .libc.dowrite    0x000598          0x4 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(write.eo)
+                  0x00045a          0x2 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt_start_mode_normal.eo)
+                  0x00045a                  __crt_start_mode_normal
+                  0x00045a                  __crt_start_mode
+ .libc.fputs      0x00045c         0x1c /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(puts.eo)
+                  0x00045c                  _fputs
+ .libc.puts       0x000478         0x14 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(puts.eo)
+                  0x000478                  _puts
+ .libc.fputc      0x00048c         0x86 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(fputc.eo)
+                  0x00048c                  _fputc
+ .libc._flsbuf    0x000512         0x7e /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(flsbuf.eo)
+                  0x000512                  __flsbuf
+ .libc.dowrite    0x000590          0x4 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(write.eo)
 
 usercode
  *(usercode)
@@ -361,22 +320,22 @@ __FGS
 
 __FOSCSEL         0xf80006          0x2
  *(__FOSCSEL.sec*)
- __FOSCSEL.sec    0xf80006          0x2 build/default/debug/init.o
+ __FOSCSEL.sec    0xf80006          0x2 build/default/production/init.o
 
 __FOSC            0xf80008          0x2
  *(__FOSC.sec*)
- __FOSC.sec       0xf80008          0x2 build/default/debug/init.o
+ __FOSC.sec       0xf80008          0x2 build/default/production/init.o
 
 __FWDT            0xf8000a          0x2
  *(__FWDT.sec*)
- __FWDT.sec       0xf8000a          0x2 build/default/debug/init.o
+ __FWDT.sec       0xf8000a          0x2 build/default/production/init.o
 
 __FPOR
  *(__FPOR.sec*)
 
 __FICD            0xf8000e          0x2
  *(__FICD.sec*)
- __FICD.sec       0xf8000e          0x2 build/default/debug/init.o
+ __FICD.sec       0xf8000e          0x2 build/default/production/init.o
 
 __FUID0
  *(__FUID0.sec*)
@@ -395,43 +354,43 @@ __FUID3
 
 .debug_info       0x000000       0x2733
  *(.debug_info)
- .debug_info      0x000000        0x58e build/default/debug/init.o
- .debug_info      0x00058e       0x1331 build/default/debug/main.o
- .debug_info      0x0018bf        0x6da build/default/debug/adc.o
- .debug_info      0x001f99        0x505 build/default/debug/filtreNum.o
- .debug_info      0x00249e        0x295 build/default/debug/FskDetector.o
+ .debug_info      0x000000        0x58e build/default/production/init.o
+ .debug_info      0x00058e       0x1331 build/default/production/main.o
+ .debug_info      0x0018bf        0x6da build/default/production/adc.o
+ .debug_info      0x001f99        0x505 build/default/production/filtreNum.o
+ .debug_info      0x00249e        0x295 build/default/production/FskDetector.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x450
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0xd6 build/default/debug/init.o
- .debug_abbrev    0x0000d6        0x16b build/default/debug/main.o
- .debug_abbrev    0x000241         0xcb build/default/debug/adc.o
- .debug_abbrev    0x00030c         0xcd build/default/debug/filtreNum.o
- .debug_abbrev    0x0003d9         0x77 build/default/debug/FskDetector.o
+ .debug_abbrev    0x000000         0xd6 build/default/production/init.o
+ .debug_abbrev    0x0000d6        0x16b build/default/production/main.o
+ .debug_abbrev    0x000241         0xcb build/default/production/adc.o
+ .debug_abbrev    0x00030c         0xcd build/default/production/filtreNum.o
+ .debug_abbrev    0x0003d9         0x77 build/default/production/FskDetector.o
 
 .debug_line       0x000000        0x3de
  *(.debug_line)
- .debug_line      0x000000         0xc4 build/default/debug/init.o
- .debug_line      0x0000c4        0x11a build/default/debug/main.o
- .debug_line      0x0001de         0xce build/default/debug/adc.o
- .debug_line      0x0002ac         0x8d build/default/debug/filtreNum.o
- .debug_line      0x000339         0xa5 build/default/debug/FskDetector.o
+ .debug_line      0x000000         0xc4 build/default/production/init.o
+ .debug_line      0x0000c4        0x11a build/default/production/main.o
+ .debug_line      0x0001de         0xce build/default/production/adc.o
+ .debug_line      0x0002ac         0x8d build/default/production/filtreNum.o
+ .debug_line      0x000339         0xa5 build/default/production/FskDetector.o
 
 .debug_frame      0x000000        0x1fa
  *(.debug_frame)
- .debug_frame     0x000000         0x30 build/default/debug/init.o
- .debug_frame     0x000030         0x90 build/default/debug/main.o
- .debug_frame     0x0000c0         0x84 build/default/debug/adc.o
- .debug_frame     0x000144         0x86 build/default/debug/filtreNum.o
- .debug_frame     0x0001ca         0x30 build/default/debug/FskDetector.o
+ .debug_frame     0x000000         0x30 build/default/production/init.o
+ .debug_frame     0x000030         0x90 build/default/production/main.o
+ .debug_frame     0x0000c0         0x84 build/default/production/adc.o
+ .debug_frame     0x000144         0x86 build/default/production/filtreNum.o
+ .debug_frame     0x0001ca         0x30 build/default/production/FskDetector.o
 
 .debug_str        0x000000        0x174
  *(.debug_str)
- .debug_str       0x000000         0x16 build/default/debug/init.o
- .debug_str       0x000016         0x93 build/default/debug/main.o
- .debug_str       0x0000a9         0x3a build/default/debug/adc.o
- .debug_str       0x0000e3         0x91 build/default/debug/filtreNum.o
+ .debug_str       0x000000         0x16 build/default/production/init.o
+ .debug_str       0x000016         0x93 build/default/production/main.o
+ .debug_str       0x0000a9         0x3a build/default/production/adc.o
+ .debug_str       0x0000e3         0x91 build/default/production/filtreNum.o
 
 .debug_loc
  *(.debug_loc)
@@ -443,15 +402,15 @@ __FUID3
                   0x000000        0x22a
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x50 build/default/debug/init.o
+                  0x000000         0x50 build/default/production/init.o
  .debug_pubnames
-                  0x000050         0xb8 build/default/debug/main.o
+                  0x000050         0xb8 build/default/production/main.o
  .debug_pubnames
-                  0x000108         0x5d build/default/debug/adc.o
+                  0x000108         0x5d build/default/production/adc.o
  .debug_pubnames
-                  0x000165         0xa3 build/default/debug/filtreNum.o
+                  0x000165         0xa3 build/default/production/filtreNum.o
  .debug_pubnames
-                  0x000208         0x22 build/default/debug/FskDetector.o
+                  0x000208         0x22 build/default/production/FskDetector.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -459,15 +418,15 @@ __FUID3
 .debug_aranges    0x000000         0x78
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/debug/init.o
+                  0x000000         0x18 build/default/production/init.o
  .debug_aranges
-                  0x000018         0x18 build/default/debug/main.o
+                  0x000018         0x18 build/default/production/main.o
  .debug_aranges
-                  0x000030         0x18 build/default/debug/adc.o
+                  0x000030         0x18 build/default/production/adc.o
  .debug_aranges
-                  0x000048         0x18 build/default/debug/filtreNum.o
+                  0x000048         0x18 build/default/production/filtreNum.o
  .debug_aranges
-                  0x000060         0x18 build/default/debug/FskDetector.o
+                  0x000060         0x18 build/default/production/FskDetector.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -1553,35 +1512,35 @@ LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a
 LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libm-elf.a
 LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a
 END GROUP
-OUTPUT(dist/default/debug/GP802Proj.X.debug.elf elf32-pic30)
+OUTPUT(dist/default/production/GP802Proj.X.production.elf elf32-pic30)
 LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
                   0x000078        0x2f3
  .debug_pubtypes
-                  0x000078         0x61 build/default/debug/init.o
+                  0x000078         0x61 build/default/production/init.o
  .debug_pubtypes
-                  0x0000d9        0x17d build/default/debug/main.o
+                  0x0000d9        0x17d build/default/production/main.o
  .debug_pubtypes
-                  0x000256         0xad build/default/debug/adc.o
+                  0x000256         0xad build/default/production/adc.o
  .debug_pubtypes
-                  0x000303         0x34 build/default/debug/filtreNum.o
+                  0x000303         0x34 build/default/production/filtreNum.o
  .debug_pubtypes
-                  0x000337         0x34 build/default/debug/FskDetector.o
+                  0x000337         0x34 build/default/production/FskDetector.o
 
 __c30_signature
                   0x00036b         0x4e
  __c30_signature
-                  0x00036b          0x6 build/default/debug/init.o
+                  0x00036b          0x6 build/default/production/init.o
  __c30_signature
-                  0x000371          0x6 build/default/debug/main.o
+                  0x000371          0x6 build/default/production/main.o
  __c30_signature
-                  0x000377          0x6 build/default/debug/adc.o
+                  0x000377          0x6 build/default/production/adc.o
  __c30_signature
-                  0x00037d          0x6 build/default/debug/filtreNum.o
+                  0x00037d          0x6 build/default/production/filtreNum.o
  __c30_signature
-                  0x000383          0x6 build/default/debug/FskDetector.o
+                  0x000383          0x6 build/default/production/FskDetector.o
  __c30_signature
                   0x000389          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
  __c30_signature
@@ -1599,75 +1558,75 @@ __c30_signature
  __c30_signature
                   0x0003b3          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(c30_uart.eo)
 
-.nbss               0x0850         0x60
- .nbss              0x0850         0x40 build/default/debug/filtreNum.o
- .nbss              0x0890         0x12 build/default/debug/main.o
-                    0x0890                  _output900
-                    0x0894                  _output1100
-                    0x0898                  _voltage
-                    0x089c                  _message
-                    0x089e                  _timerCount
-                    0x08a0                  _variable
- .nbss              0x08a2          0xe build/default/debug/FskDetector.o
+.nbss               0x0800         0x60
+ .nbss              0x0800         0x40 build/default/production/filtreNum.o
+ .nbss              0x0840         0x12 build/default/production/main.o
+                    0x0840                  _output900
+                    0x0844                  _output1100
+                    0x0848                  _voltage
+                    0x084c                  _message
+                    0x084e                  _timerCount
+                    0x0850                  _variable
+ .nbss              0x0852          0xe build/default/production/FskDetector.o
 
-.ndata              0x08b0          0x2
- .ndata             0x08b0          0x2 build/default/debug/main.o
-                    0x08b0                  _bit900
-                    0x08b1                  _bit1100
+.ndata              0x0860          0x2
+ .ndata             0x0860          0x2 build/default/production/main.o
+                    0x0860                  _bit900
+                    0x0861                  _bit1100
 
-.data               0x08b2         0xe6
- .data              0x08b2         0xc0 build/default/debug/filtreNum.o
-                    0x08b2                  _coef9001
-                    0x08ca                  _coef9002
-                    0x08e2                  _coef9003
-                    0x08fa                  _coef9004
-                    0x0912                  _coef11001
-                    0x092a                  _coef11002
-                    0x0942                  _coef11003
-                    0x095a                  _coef11004
- .data              0x0972         0x26 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(_iob.eo)
-                    0x0972                  __iob
-                    0x0996                  __Files
+.data               0x0862         0xe6
+ .data              0x0862         0xc0 build/default/production/filtreNum.o
+                    0x0862                  _coef9001
+                    0x087a                  _coef9002
+                    0x0892                  _coef9003
+                    0x08aa                  _coef9004
+                    0x08c2                  _coef11001
+                    0x08da                  _coef11002
+                    0x08f2                  _coef11003
+                    0x090a                  _coef11004
+ .data              0x0922         0x26 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(_iob.eo)
+                    0x0922                  __iob
+                    0x0946                  __Files
 
-.bss                0x0998          0x8
- .bss               0x0998          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(_iob.eo)
-                    0x0998                  __outdone
-                    0x0999                  __sibuf
-                    0x099b                  __sobuf
- .bss               0x099e          0x2 build/default/debug/main.o
-                    0x099e                  _newMessage
+.bss                0x0948          0x8
+ .bss               0x0948          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libc-elf.a(_iob.eo)
+                    0x0948                  __outdone
+                    0x0949                  __sibuf
+                    0x094b                  __sobuf
+ .bss               0x094e          0x2 build/default/production/main.o
+                    0x094e                  _newMessage
 
-.data               0x09a0          0x2
- .data              0x09a0          0x2 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(c30_uart.eo)
-                    0x09a0                  ___C30_UART
+.data               0x0950          0x2
+ .data              0x0950          0x2 /opt/microchip/xc16/v1.33/bin/bin/../../lib/libpic30-elf.a(c30_uart.eo)
+                    0x0950                  ___C30_UART
 
 .ivt._T2Interrupt
                   0x000022          0x2
  .ivt._T2Interrupt
-                  0x000022          0x2 build/default/debug/main.o
+                  0x000022          0x2 build/default/production/main.o
 
-.const              0x859c         0x3c load address 0x00059c  
- .const             0x859c         0x3c build/default/debug/FskDetector.o
+.const              0x8594         0x3c load address 0x000594  
+ .const             0x8594         0x3c build/default/production/FskDetector.o
 
-.text             0x0005d8        0x5f2
- .text            0x0005d8        0x40e build/default/debug/filtreNum.o
-                  0x0005d8                  _sos
-                  0x0006d8                  _filtre900
-                  0x000878                  _filtre1100
- .text            0x0009e6        0x1e4 build/default/debug/FskDetector.o
-                  0x0009e6                  _fskDetector
+.text             0x0005d0        0x5f2
+ .text            0x0005d0        0x40e build/default/production/filtreNum.o
+                  0x0005d0                  _sos
+                  0x0006d0                  _filtre900
+                  0x000870                  _filtre1100
+ .text            0x0009de        0x1e4 build/default/production/FskDetector.o
+                  0x0009de                  _fskDetector
 
-.dinit            0x000bca         0xd6
- .dinit           0x000bca         0xd6 data_init
+.dinit            0x000bc2         0xd6
+ .dinit           0x000bc2         0xd6 data_init
 
-.text             0x000ca0        0x140
- .text            0x000ca0         0xb2 build/default/debug/main.o
-                  0x000ca0                  _separate_message
-                  0x000cd0                  _main
- .text            0x000d52         0x4a build/default/debug/adc.o
-                  0x000d52                  _adcTimerInit
-                  0x000d70                  _adcPollingStart
-                  0x000d78                  _adcConversionFinished
-                  0x000d86                  _adcRead
- .text            0x000d9c         0x44 build/default/debug/init.o
-                  0x000d9c                  _oscillatorInit
+.text             0x000c98        0x140
+ .text            0x000c98         0xb2 build/default/production/main.o
+                  0x000c98                  _separate_message
+                  0x000cc8                  _main
+ .text            0x000d4a         0x4a build/default/production/adc.o
+                  0x000d4a                  _adcTimerInit
+                  0x000d68                  _adcPollingStart
+                  0x000d70                  _adcConversionFinished
+                  0x000d7e                  _adcRead
+ .text            0x000d94         0x44 build/default/production/init.o
+                  0x000d94                  _oscillatorInit
