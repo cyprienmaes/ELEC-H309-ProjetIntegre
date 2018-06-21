@@ -27,7 +27,7 @@ int fskDetector(int detLow, int detHigh) {
 	static int timer=0, countL=0, countH=0, bitNb=0, parity=0;
 	SignalStateType signalState;
 
-	// Détermination de l'état du signal
+	// DÃ©termination de l'Ã©tat du signal
 	if (!detHigh) {
 		if (!detLow) {signalState = SILENCE;}
 		else {signalState = BIT0;}
@@ -35,7 +35,7 @@ int fskDetector(int detLow, int detHigh) {
 		if (!detLow) {signalState = BIT1;}
 		else {signalState = BRUIT;}
 	}
-	// Machine d'état
+	// Machine d'Ã©tat
 	switch(state) {
 		case IDLE:
 			// Actions : none
@@ -127,10 +127,7 @@ int fskDetector(int detLow, int detHigh) {
 			if (signalState == BIT1) {countH++;}
 			// Transitions
 			if (timer >= OSR) {
-<<<<<<< HEAD
                 messageComplete = 1;/*
-=======
->>>>>>> 9a56ec627e67ee46192524e16228976717e8146b
 				if (countL >= FSK_MIN_SAMPLES_NB) {
 					messageComplete = 1;
 				}
@@ -138,11 +135,7 @@ int fskDetector(int detLow, int detHigh) {
 				else {
 					printf("Stop Bit error\n");
 				}
-<<<<<<< HEAD
 				#endif*/
-=======
-				#endif
->>>>>>> 9a56ec627e67ee46192524e16228976717e8146b
 				state = IDLE;
 			}
 			break;
