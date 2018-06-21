@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/cypri/Documents/GitHub/ProjetIntegre/ELEC-H309-ProjetIntegre/GP802Proj.X/FskDetector.c</file>
             <file>file:/C:/Users/cypri/Documents/GitHub/ProjetIntegre/ELEC-H309-ProjetIntegre/GP802Proj.X/main.c</file>
             <file>file:/C:/Users/cypri/Documents/GitHub/ProjetIntegre/ELEC-H309-ProjetIntegre/GP802Proj.X/FskDetector.h</file>
             <file>file:/C:/Users/cypri/Documents/GitHub/ProjetIntegre/ELEC-H309-ProjetIntegre/GP802Proj.X/filtreNum.c</file>
+=======
+            <file>file:/media/amate/Nowy/Polytech/2017-2018/Projet_integre/Git/ELEC-H309-ProjetIntegre/GP802Proj.X/filtreNum.c</file>
+            <file>file:/media/amate/Nowy/Polytech/2017-2018/Projet_integre/Git/ELEC-H309-ProjetIntegre/GP802Proj.X/main.c</file>
+>>>>>>> 9a56ec627e67ee46192524e16228976717e8146b
         </group>
     </open-files>
 </project-private>

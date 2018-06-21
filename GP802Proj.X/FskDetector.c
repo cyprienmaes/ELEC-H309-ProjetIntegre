@@ -127,7 +127,10 @@ int fskDetector(int detLow, int detHigh) {
 			if (signalState == BIT1) {countH++;}
 			// Transitions
 			if (timer >= OSR) {
+<<<<<<< HEAD
                 messageComplete = 1;/*
+=======
+>>>>>>> 9a56ec627e67ee46192524e16228976717e8146b
 				if (countL >= FSK_MIN_SAMPLES_NB) {
 					messageComplete = 1;
 				}
@@ -135,7 +138,11 @@ int fskDetector(int detLow, int detHigh) {
 				else {
 					printf("Stop Bit error\n");
 				}
+<<<<<<< HEAD
 				#endif*/
+=======
+				#endif
+>>>>>>> 9a56ec627e67ee46192524e16228976717e8146b
 				state = IDLE;
 			}
 			break;

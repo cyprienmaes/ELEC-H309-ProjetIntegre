@@ -2,11 +2,20 @@ from scipy import signal
 import math
 from numpy import *
 import matplotlib.pyplot as plt
-gain900 = 1.60414857371e-09
-gain1100 = 3.566569109e-09
+#gain900 = 1.60414857371e-09 pour 16000
+#gain1100 = 3.566569109e-09
+#gain900 = 1.82039715031e-09  pour 15500
+#gain1100 = 4.04688652613e-09
+#gain900 = 2.07434467798e-09 pour 15000
+#gain1100 = 4.61085254787e-09
+#gain900 = 2.37415995725e-09
+#gain1100 = 5.27657333547e-09 pour 14500
+gain900 = 2.58024724617e-09
+gain1100 = 5.73411475348e-09
+n = 2**9
 # important datas for the digital filter
-fsample = 16000/2 # Hz
-fcenter = 1100 # Hz
+fsample = 14200/2 # Hz
+fcenter = 900 # Hz
 f_cut_min = fcenter - (1.5/100)*fcenter # Hz
 f_cut_max = fcenter + (1.5/100)*fcenter # Hz
 f_stop_min = fcenter - (3.5/100)*fcenter # Hz
@@ -33,15 +42,15 @@ b, a = signal.butter(N, Wn, 'band', analog=False, output='ba')
 w, h = signal.freqz(b, a, worN=10000)
 plt.plot((fsample / pi) * w, abs(h))
 sos = signal.tf2sos(b, a, pairing='nearest')
-sos[0,1] = (sos[0,1]/sos[0,0])*2**10
-sos[0,2] = (sos[0,2]/sos[0,0])*2**10
+sos[0,1] = (sos[0,1]/sos[0,0])*n
+sos[0,2] = (sos[0,2]/sos[0,0])*n
 print(sos[0,0])
-sos[0,0] = 1*2**10
-sos[0,4] = sos[0,4]*2**10
-sos[0,5] = sos[0,5]*2**10
-sos[1] = sos[1]*2**10
-sos[2] = sos[2]*2**10
-sos[3] = sos[3]*2**10
+sos[0,0] = 1*n
+sos[0,4] = sos[0,4]*n
+sos[0,5] = sos[0,5]*n
+sos[1] = sos[1]*n
+sos[2] = sos[2]*n
+sos[3] = sos[3]*n
 plt.plot([800, 1000], [0.9, 0.9], "r--")
 plt.plot([800, 1000], [0.1, 0.1], "r--")
 plt.plot([f_cut_min, f_cut_min], [0.01, 1.2], "g--")
@@ -58,5 +67,5 @@ plt.show()
 print(a)
 print(b)
 print(sos)
-print((2**10)**2)
-print((gain1100**(1/4))*(2**10))
+print((n)**2)
+print((gain900**(1/4))*(n))
