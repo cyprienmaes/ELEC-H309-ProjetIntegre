@@ -3,8 +3,16 @@
 #include"math.h"
 #include <xc.h>
 
-char order;
-char parameter;
+unsigned char order;
+unsigned char parameter;
+//Variables
+    float pi = 3.1416;
+    float t = 0; //ms
+    float kp_fois_e_dist=0, kp_fois_e_ang=0;
+    int pos_right, pos_left;
+    int POS0 = 32768;
+    
+    
 
 typedef struct target {
     float l_target;
@@ -17,6 +25,7 @@ void timer2Init(){
     PR2 = 49999; // 49999 sets value T=10ms only possible with prescaler
     TMR2 = 0;
     T2CONbits.TON = 1;
+    t = 0;
 }
 
 
@@ -68,6 +77,9 @@ void encodersInit(){
     QEI2CONbits.QEIM = 0b111;// x4 mode
     
     QEI1CONbits.SWPAB = 1; 
+    
+    POS1CNT = POS0;
+    POS2CNT = POS0;
 }
 
 float l_ref(float t, float l_target){
@@ -119,12 +131,14 @@ float ang_mes(int pos_left, int pos_right){
 }
 
 float ang_ref(float t, float ang_target){
-    float ang_ref;
-    float ang_speed = 2*(pi/2)/1000; //rad/ms vitesse de reference
-    float ang_a = ((pi/2)/1000)/1000; //rad
-    if( ang_target < 0 ){ang_speed = -ang_speed;}
-    float ti = ang_target/ang_speed;
+    float sign = 1;
+    if(ang_target <0){sign=-1; 
+                      ang_target = ang_target*(-1);}
     
+    float ang_ref;
+    float ang_speed = (pi/2)/1000; //rad/ms vitesse de reference
+    float ang_a = ((pi/2)/1000)/1000; //rad
+        
     float t1 = ang_speed/ang_a;
     float ang1 = ang_a*t1*t1/2;
     
@@ -138,9 +152,9 @@ float ang_ref(float t, float ang_target){
         float t3 = t1 + t2;
         
         if      (t <= t1){           ang_ref = (ang_a*t*t)/2 ;}
-        else if (t > t1 && t <= t2){ ang_ref = ang1 + ( ang_speed*(t-t1) ) ;}
+        else if (t > t1 && t <= t2){ ang_ref = ang1 + ( ang_speed*(t-t1) );}
         else if (t > t2 && t <= t3){ ang_ref = ang2 + ( ang_speed*(t-t2) ) - (ang_a*(t-t2)*(t-t2)/2);}
-        else if (t > t3 ){           ang_ref = ang_target ;}
+        else if (t > t3 ){           ang_ref = ang_target;}
     }
     
     else if (ang_target < ang1){ // PROFILE TRIANGULAIRE
@@ -152,25 +166,25 @@ float ang_ref(float t, float ang_target){
         else if (t >= 2*t1)           {  ang_ref = ang_target;}
     }
     
-    return ang_ref;
+    return (sign*ang_ref);
 }
 
 target set_targets(char order, int parameter){
     // Fonction recevant un ordre et un parametre afin de mettre à jours les nouvelles consignes de positon du robot
     target TARGET;
     if(order == 0b00){ //Avance
-        TARGET.l_target = (float) parameter;
+        TARGET.l_target = 10*(float) parameter;
         TARGET.ang_target = 0;
     }
     
     if(order == 0b01){ //Tourne a gauche
         TARGET.l_target = 0;
-        TARGET.ang_target = (float) parameter;
+        TARGET.ang_target = (float) parameter*(pi/180);
     }
     
     if(order == 0b10){ //Tourne a drotie
         TARGET.l_target = 0;
-        TARGET.ang_target = (float) (-1) * parameter;
+        TARGET.ang_target = (float) (-1) * parameter*(pi/180);
     }
     return TARGET;
 }
@@ -211,27 +225,15 @@ int main(void)
     RPOR3bits.RP7R = 0b00011;               // Assign UART1 output to RP7
    
    
-   
    //----------------------------
-    //Variables
-    
-    //int dist1 = POS1CNT;
-    //int dist2 = POS2CNT;
-    float t = 0; //ms
-    //float kp_dist = 0.00849; // 8.49 /m --> 0.00849 /mm;
-    //float kp_ang = 0.075;
-    float kp_fois_e_dist=0, kp_fois_e_ang=0;
-    int pos_right, pos_left;
-    
     //set_OCxRS_right(0);
     //set_OCxRS_left(0);
     
-    int POS0 = 32768;
-    POS1CNT = POS0;
-    POS2CNT = POS0;
     
-    char receivedMessage ;
     target TARGET;
+    TARGET.l_target = 0;
+    TARGET.ang_target = 0;
+    t = 0;
     
     while(1) {	
         
@@ -239,37 +241,33 @@ int main(void)
          * We check if there is any data in the receive buffer. 
          * The message will contain the command the motor will execute.
          */
-       
-            if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
-            receivedMessage =  read_message();
+        
+           if(U1STAbits.URXDA){                   //Receive Buffer Data Available bit 
+               read_message();
 	    	// LECTURE DE L'ORDE ET DU PARAMETRE DANS LE MESSAGE RECU
             
 		    // MISE A JOUR DES TARGETS EN FONCTION DU MESSAGE RECU
-                    TARGET = set_targets(order, parameter);
-                    order = 0;
-                    parameter = 0;
-		    // 
-		    
-            }
-	    
-            if(receivedMessage == '1'){ 
+               TARGET = set_targets(order, parameter);
+               
+               t = 0;
+               POS1CNT = POS0;
+               POS2CNT = POS0;
+           }
+	
+            if (IFS0bits.T2IF) {
+                IFS0bits.T2IF = 0;
+                t += 10;
+
+                pos_right = POS1CNT - POS0;
+                pos_left = POS2CNT - POS0;
                 
-                 if (IFS0bits.T2IF) {
-                        IFS0bits.T2IF = 0;
-                        t += 10;
-        
-                        pos_right = POS1CNT - POS0;
-                        pos_left = POS2CNT - POS0;
-        
-            
-                        kp_fois_e_dist = ( l_ref(t, TARGET.l_target) - l_mes(pos_left, pos_right) )*0.00846;
-                        kp_fois_e_ang = ( ang_ref(t, TARGET.ang_target) - ang_mes(pos_left, pos_right))*0.5;
-        
-                        set_OCxRS_right(kp_fois_e_dist + kp_fois_e_ang);
-                        set_OCxRS_left(kp_fois_e_dist - kp_fois_e_ang);       
-                }
+                kp_fois_e_dist = ( l_ref(t, TARGET.l_target) - l_mes(pos_left, pos_right) )*0.00831;
+                kp_fois_e_ang = ( ang_ref(t, TARGET.ang_target) - ang_mes(pos_left, pos_right))*1.1;
+
+                set_OCxRS_right(kp_fois_e_dist + kp_fois_e_ang);
+                set_OCxRS_left(kp_fois_e_dist - kp_fois_e_ang);       
             }
+    }
         
         
-    }                                                                                                                  
 }
