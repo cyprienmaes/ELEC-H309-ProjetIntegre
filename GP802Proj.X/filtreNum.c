@@ -7,11 +7,21 @@
 #define gain900 3
 #define gain1100 4
 
+long bridge1[2] = {0,0};
+long bridge2[2] = {0,0};
+long bridge3[2] = {0,0};
+long bridge4[2] = {0,0};
+long bridge5[2] = {0,0};
+long bridge6[2] = {0,0};
+long bridge7[2] = {0,0};
+long bridge8[2] = {0,0};
+
+
 long coef9001 [6] = {512, 1024, 512, 512, -954, 506};
 long coef9002 [6] = {512, 1024, 512, 512, -956, 506};
 long coef9003 [6] = {512, -1024, 512, 512, -956, 509};
 long coef9004 [6] = {512, -1024, 512, 512, -960, 509};
-
+    
 long coef11001 [6] = {512, 1024, 512, 512, -922, 505};
 long coef11002 [6] = {512, 1024, 512, 512, -925, 505};
 long coef11003 [6] = {512, -1024, 512, 512, -924, 509};
@@ -34,10 +44,6 @@ secondValues sos(long coef[6], long bridge[2], long input) {
 long filtre900(long input)
 {
     /*Coefficients des filtres du second ordre pour 900Hz*/
-    static long bridge1[2] = {0,0};
-    static long bridge2[2] = {0,0};
-    static long bridge3[2] = {0,0};
-    static long bridge4[2] = {0,0};
     long output1 = 0;
     long output2= 0;
     long output3 = 0;
@@ -64,17 +70,13 @@ long filtre900(long input)
     bridge4[1] = secondValues4.interval;
     output4 = secondValues4.newval;
     output4 = (output4*gain900)/n;
-    exit = 512 + output4;
+    exit = output4+512;
     return exit;
 }
 
 long filtre1100(long input)
 {
     /*Coefficients des filtres du second ordre pour 1100Hz*/
-    static long bridge5[2] = {0,0};
-    static long bridge6[2] = {0,0};
-    static long bridge7[2] = {0,0};
-    static long bridge8[2] = {0,0};
     long output1 = 0;
     long output2= 0;
     long output3 = 0;
@@ -101,6 +103,6 @@ long filtre1100(long input)
     bridge8[1] = secondValues4.interval;
     output4 = secondValues4.newval;
     output4 = (output4*gain1100)/n;
-    exit = 512 + output4;
+    exit = output4+512;
     return exit;
 }

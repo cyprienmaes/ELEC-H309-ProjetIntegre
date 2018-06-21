@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=init.c main.c adc.c filtreNum.c
+SOURCEFILES_QUOTED_IF_SPACED=init.c main.c adc.c filtreNum.c FskDetector.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/filtreNum.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/init.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/adc.o.d ${OBJECTDIR}/filtreNum.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/filtreNum.o ${OBJECTDIR}/FskDetector.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/init.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/adc.o.d ${OBJECTDIR}/filtreNum.o.d ${OBJECTDIR}/FskDetector.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/filtreNum.o
+OBJECTFILES=${OBJECTDIR}/init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/adc.o ${OBJECTDIR}/filtreNum.o ${OBJECTDIR}/FskDetector.o
 
 # Source Files
-SOURCEFILES=init.c main.c adc.c filtreNum.c
+SOURCEFILES=init.c main.c adc.c filtreNum.c FskDetector.c
 
 
 CFLAGS=
@@ -122,6 +122,13 @@ ${OBJECTDIR}/filtreNum.o: filtreNum.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  filtreNum.c  -o ${OBJECTDIR}/filtreNum.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/filtreNum.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/filtreNum.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/FskDetector.o: FskDetector.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/FskDetector.o.d 
+	@${RM} ${OBJECTDIR}/FskDetector.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  FskDetector.c  -o ${OBJECTDIR}/FskDetector.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/FskDetector.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/FskDetector.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/init.o: init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -150,6 +157,13 @@ ${OBJECTDIR}/filtreNum.o: filtreNum.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/filtreNum.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  filtreNum.c  -o ${OBJECTDIR}/filtreNum.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/filtreNum.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/filtreNum.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/FskDetector.o: FskDetector.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/FskDetector.o.d 
+	@${RM} ${OBJECTDIR}/FskDetector.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  FskDetector.c  -o ${OBJECTDIR}/FskDetector.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/FskDetector.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/FskDetector.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

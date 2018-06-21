@@ -7,6 +7,7 @@
       <itemPath>init.h</itemPath>
       <itemPath>adc.h</itemPath>
       <itemPath>filtreNum.h</itemPath>
+      <itemPath>FskDetector.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +20,7 @@
       <itemPath>main.c</itemPath>
       <itemPath>adc.c</itemPath>
       <itemPath>filtreNum.c</itemPath>
+      <itemPath>FskDetector.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

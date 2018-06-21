@@ -4,33 +4,94 @@
 #include <math.h>
 #include "init.h"
 #include "adc.h"
+#include "FskDetector.h"
 #include <xc.h>
 #include "filtreNum.h"
-char bit900 = '0';
-char bit1100 = '0';
+int bit900 = 0;
+int bit1100 = 0;
 long output900 = 0;
 long output1100 = 0;
-long voltage = 0; 
+long voltage = 0;
+int message = 0;
+int timerCount = 0;
+
+typedef struct messageSplit {
+    char message1;
+    char message2;
+}messageSplit;
+
+messageSplit newMessage;
+
+messageSplit separate_message(int m){
+    messageSplit sendMessage;
+    int bitsmessage1  = m & 0b0000001100000000;
+    bitsmessage1 = bitsmessage1 >> 8;
+    int bitsmessage2 = m & 0b0000000011111111;
+    sendMessage.message1 = (char) bitsmessage1;
+    sendMessage.message2 = (char) bitsmessage2; 
+    return sendMessage;
+}   
 
 void _ISR _T2Interrupt(void) {
     IFS0bits.T2IF = 0;
+    if(message != 0){
+        newMessage = separate_message(message);
+        if (U1STAbits.UTXBF != 1){ 
+        U1TXREG = newMessage.message1;}
+        if (U1STAbits.UTXBF != 1){ 
+        U1TXREG = newMessage.message2;}
+        message = 0;
+    }/*
     if (U1STAbits.UTXBF != 1){          //Transmit buffer is not full, at least one more character can be written
         U1TXREG = bit900;   // Put the data in the transmit buffer
-        // U1TXREG = bit1100;
+        //U1TXREG = bit1100;
     }
+    timerCount = 1 + timerCount;
+    IFS0bits.T2IF = 0;
+    message = 0;
+    
+    if(timerCount == 10 || timerCount == 30){
+        while(U1STAbits.UTXBF){}          //Transmit buffer is not full, at least one more character can be written
+        message = 0b0000000000110010;
+        newMessage = separate_message(message);
+        U1TXREG = newMessage.message1;
+        while(U1STAbits.UTXBF){}
+        U1TXREG = newMessage.message2;
+    }
+    
+    if(timerCount == 20){
+        message = 0b0000000110110100;
+        newMessage = separate_message(message);
+        while (U1STAbits.UTXBF ){}          //Transmit buffer is not full, at least one more character can be written
+        U1TXREG = newMessage.message1;
+        while(U1STAbits.UTXBF){}
+        U1TXREG = newMessage.message2;         
+    }
+    
+    if(timerCount == 40){
+        timerCount = 0;
+        message = 0b0000001010110100;
+        newMessage = separate_message(message);
+        while (U1STAbits.UTXBF ){}          //Transmit buffer is not full, at least one more character can be written
+        U1TXREG = newMessage.message1;
+        while(U1STAbits.UTXBF){}
+        U1TXREG = newMessage.message2;
+    }*/
 }
+
 
     
 int main(void)
 {   
+    int i = 0;
     // Variable pour l'ADC.
-    // echantillon sur une periode a 1100Hz = 14.5 et echantillon sur une periode
-    // a 900Hz = 17.8. On prend donc un nombre d'echantillon egal a 20 pour avoir
+    // echantillon sur une periode a 1100Hz = 13.18 et echantillon sur une periode
+    // a 900Hz = 16.11. On prend donc un nombre d'echantillon egal a 20 pour avoir
     // une marge de securite et aussi une frequence entiere d'envoi a l'UART.
     char nbEchant = 20;
     // Definition Des seuils pour 1100Hz et 900Hz.
-    long seuilMax1100 = 1200;
-    long seuilMin1100 = -200;
+    long seuilMax1100 = 600;
+    long seuilMin1100 = 400;
     long seuilMax900 = 600;
     long seuilMin900 = 400;
     
@@ -46,11 +107,11 @@ int main(void)
     adcTimerInit();
     // Configuration du Timer2 pour pour la frequence d'envoie à l'UART égale a 800Hz.
     
-    PR2 = 5000; // => PR2 = 1/800 * 4 * 10^6
+    PR2 = 50000; // => PR2 = 1/800 * 40 * 10^6
     T2CONbits.TON = 1;
     
     // Configuration du Timer3 a 16 000 Hz pour echantillonage.
-    PR3 = 250; // => PR3 = 1/16000 * 4 * 10^6
+    PR3 = 2500; // => PR3 = 1/14200 * 40 * 10^6
     T3CONbits.TON = 1;
     
     TRISBbits.TRISB0 = 1;
@@ -73,26 +134,28 @@ int main(void)
     while(1) {
         if (IFS0bits.T3IF) {
             IFS0bits.T3IF = 0;
-            adcPollingStart();
+            //adcPollingStart();
             while(!adcConversionFinished());
             voltage = adcRead();
+            i+=1;
             output900 = filtre900(voltage);
             output1100 = filtre1100(voltage);
             if (output900 <= seuilMin900) flagSeuil900 +=1;
             else if (output900 >= seuilMax900) flagSeuil900 +=1;
-            else if (output1100 <= seuilMin1100) flagSeuil1100 += 1;
-            if (output1100 >= seuilMax1100)flagSeuil1100 +=1;
+            else if (output1100<= seuilMin1100) flagSeuil1100 += 1;
+            if (output1100>= seuilMax1100)flagSeuil1100 +=1;
             flagBit +=1;
         }
         if (flagBit == nbEchant) {
             flagBit = 0;
-            if (flagSeuil900 >= 2) bit900 = '1';
-            else bit900 = '0';
-            if (flagSeuil1100 >= 2) bit1100 = '1';
-            else bit1100 = '0';
+            if (flagSeuil900 >= 2) bit900 = 1;
+            else bit900 = 0;
+            if (flagSeuil1100 >= 2) bit1100 = 1;
+            else bit1100 = 0;
             flagSeuil900 = 0;
             flagSeuil1100 = 0;
-
+            message = 0;
+            message = fskDetector(bit900,bit1100);
         }
     }                                                                                                            
 }
